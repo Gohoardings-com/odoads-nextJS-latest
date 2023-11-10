@@ -1,9 +1,26 @@
+import React, { useState, useEffect} from "react";
 import SideBar from "../../components/dashboard_navbar/Sidebar";
 import withAuth from "../../hoc/withAuth";
 import Dashboard1 from "@/components/dashboard/dashboard1";
 import Dashboard2 from "@/components/dashboard/dashboard2";
+import { checkplan } from "@/apis/apis";
+import { useRouter } from "next/router";
 
 const Index = () => {
+  const router = useRouter();
+
+  const ispaid = async () => {
+    const data = await checkplan()
+    if (data.success == false) {
+      router.push("/pricing")
+    }
+  }
+
+  useEffect(() => {
+    ispaid();
+  }, []);
+
+
   return (
     <>
       <div className="containers">

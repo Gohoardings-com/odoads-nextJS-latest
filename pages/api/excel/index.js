@@ -12,10 +12,51 @@ module.exports = async function handler(req, res) {
             await verifyToken(req, res);
             await excel(req, res);
             break;
+        case 'PUT':
+            await verifyToken(req, res);
+            updatePlan(req,res)
+            break;
         default:
             return res.status(405).end(`Method ${method} Not Allowed`);
     }
 };
+
+export const updatePlan = catchError(async (req, res) => {
+    const {code} = req.id;
+    const {amount} = req.body;
+    let plan,type;
+    switch (amount) {
+        case 0 :
+          plan = "free";
+          type = "forever";
+          break;
+        case 6000 :
+            plan = "professional";
+            type = "month";
+          break;
+        case 79200 :
+            plan = "professional";
+            type = "year";
+          break;
+        case 11000 :
+            plan = "enterprise";
+            type = "month";
+          break;
+        case 132000 :
+            plan = "enterprise";
+            type = "year";
+          break;
+        default:
+          break;
+      }
+
+      const sql = `UPDATE tblcompanies SET paid = 1, Plan = '${plan}' , Plan_type = '${type}' WHERE code = '${code}'`;
+      console.log(sql);
+      await executeQuery(sql,"odoads_tblcompanies");
+      
+      return res.status(206).json({ success: true, message: "success" });
+
+})
 
 export const excel = catchError(async (req, res) => {
     const { ID, data } = req.body;

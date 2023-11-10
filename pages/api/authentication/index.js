@@ -30,11 +30,14 @@ export const loginEmail = catchError(async (req, res) => {
   const { formData } = req.body;
   const { email, password, company } = formData;
   const data = await executeQuery(
-    "SELECT code FROM tblcompanies WHERE name = '" + company + "' ",
+    "SELECT code, Plan, Plan_type, paid FROM tblcompanies WHERE name = '" + company + "' ",
     "odoads_tblcompanies"
   );
 
   if (data.length == 1) {
+    if (data[0].paid == 0) {
+      return res.status(206).json({ success: false, message: "Select Plan" });
+    }
     const userid = data[0].code;
     const stafflogin = await executeQuery(
       "SELECT password, staffid From tblstaff WHERE email = '" + email + "'",

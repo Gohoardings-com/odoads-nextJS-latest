@@ -1,14 +1,119 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Header from "../../components/static-header";
 import Footer from "@/components/footer";
 import Floatingnavbar from "@/components/navbar/navbar-float";
+import {payment, verifyPay, updatePlan } from "@/apis/apis";
 
 const Pricing = () => {
+  const router = useRouter();
   const { asPath } = useRouter();
   const [state, setState] = useState(true);
   const [nstate, setNstate] = useState(false);
+
+  const [loged, setLogged] = useState();
+useEffect(() => {
+  // Check if the localStorage data has expired
+  const expirationTime =
+    typeof window !== "undefined" && localStorage.getItem("expirationTime");
+  if (expirationTime && Date.now() > expirationTime) {
+    localStorage.removeItem("user");
+    localStorage.removeItem("expirationTime");
+  }
+
+  //check user logged in or not
+  const userIsAuthenticated =
+    typeof window !== "undefined" && localStorage.getItem("user") !== null;
+  setLogged(userIsAuthenticated);
+}, []);
+
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePlan = async (plan) => {
+    let amount;
+    switch (plan) {
+      case "free":
+        const data =  await updatePlan(0);
+        if (data.message == "success") {
+          router.push("/admin")
+        }
+        break;
+      case "prof":
+        amount = nstate ? 79200 : 6000
+        await subscribe(amount)
+        break;
+      case "ent":
+        amount = nstate ? 132000 : 11000
+        await subscribe(amount)
+        break;
+      default:
+        break;
+    }
+  }
+
+  const subscribe = async (amount) => {
+    if (loged !== true) {
+      router.push("/login");
+      return;
+    }
+
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    const data = await payment(amount);
+    var options = {
+      key: "rzp_test_cSCGi16XKuPDax",
+      name: "Gohoardings Solution LLP",
+      currency: "INR",
+      amount: data.amount,
+      order_id: data.id,
+      description: "Thank you",
+      image: "https://www.gohoardings.com/images/web_pics/logo.png",
+      handler: async function (response) {
+        const isSignatureValid = await verifyPay(
+          response.razorpay_payment_id,
+          response.razorpay_order_id,
+          response.razorpay_signature
+        );
+
+        if (!isSignatureValid) {
+          return res.status(400).end();
+        } else {
+          console.log("success payment");
+          await updatePlan(amount);
+          router.push("/admin")
+        }
+      },
+      prefill: {
+        name: "demo",
+        email: "demo@gmail.com",
+        contact: "9988776655",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
   return (
     <>
       <Head>
@@ -153,7 +258,7 @@ const Pricing = () => {
                 </div>
                 <br />
                 <p className="text-center py-3">
-                  <a className="btn btn-outline-primary" href="/login">
+                  <a className="btn btn-outline-primary" onClick={(() => handlePlan("free"))}>
                     Get started
                   </a>
                 </p>
@@ -223,7 +328,7 @@ const Pricing = () => {
                 <br />
 
                 <p className="text-center py-3">
-                  <a className="btn btn-success" href="login">
+                  <a className="btn btn-success" onClick={(() => handlePlan("prof"))}>
                     Get started
                   </a>
                 </p>
@@ -301,13 +406,18 @@ const Pricing = () => {
                 <br />
 
                 <p className="text-center py-3">
-                  <a className="btn btn-outline-primary" href="/login">
+                  <a className="btn btn-outline-primary" onClick={(() => handlePlan("ent"))}>
                     Get started
                   </a>
                 </p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section>
+        <div className="container lead text-center">
+        Please Read our <a href="http://odoads.com/refund-policy" target="_blank" rel="noopener noreferrer">refund policy</a> before purchases.
         </div>
       </section>
       <section className="section">

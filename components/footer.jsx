@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="col-md-6 col-9 ps-3 ps-md-0">
             <p style={{ margin: 0 }}>
               © {new Date().getFullYear()} Odoads by{" "}
-              <Link href="https://www.gohoardings.com">Gohoardings</Link>, All
+              <Link href="https://www.gohoardings.com">Gohoardings Solution LLP</Link>, All
               rights reserved.
             </p>
             <Link href="/disclaimer" style={{ fontSize: "10px" }}>

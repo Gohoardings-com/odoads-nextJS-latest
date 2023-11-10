@@ -43,7 +43,15 @@ const LoginForm = () => {
         localStorage.setItem("expirationTime", expirationTime.toString());
 
         router.push("/admin");
-      } else if (value.message !== "") {
+      } else if(value.message == "Select Plan") {
+        localStorage.setItem("user", "logged");
+
+        // Set the expiration time to 7 days from now
+        const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
+        localStorage.setItem("expirationTime", expirationTime.toString());
+        
+        router.push("/pricing");
+      }else if (value.message !== "") {
         alert(value.message);
       }
     } else {

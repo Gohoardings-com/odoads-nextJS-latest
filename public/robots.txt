@@ -71,3 +71,6 @@ Host: https://www.odoads.com/
 
 # Sitemaps
 Sitemap: https://odoads.com/sitemap.xml
+
+#Disallow
+Disallow: https://odoads.com/refund-policy

@@ -17,7 +17,28 @@ let staff = "staff";
 let staffRoles = "staffRoles";
 let permission = "permissions";
 let leadStatus = "leadStatus";
+let razorpay = "razorpay";
+let excel = "excel";
 
+export const updatePlan = async (amount) => {
+  const { data } = await instance.put(excel,{amount});
+  return data;
+};
+
+export const checkplan = async () => {
+  const { data } = await instance.get(razorpay);
+  return data;
+};
+
+export const payment = async (amount) => {
+  const { data } = await instance.post(razorpay,{amount});
+  return data;
+};
+
+export const verifyPay = async (pay_id,order_id,res_signature) => {
+  const { data } = await instance.put(razorpay,{pay_id,order_id,res_signature});
+  return data;
+};
 
 export const loginApi = async (formData) => {
   const { data } = await instance.patch(authentication, { formData });
