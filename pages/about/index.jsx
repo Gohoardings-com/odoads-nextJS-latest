@@ -80,14 +80,14 @@ const About = () => {
       <Floatingnavbar/>
       <section className="section">
         <div className="container">
-          <div className="row gap-y p-3 p-md-0">
-            <div className="col-md-4  text-md-end text-center p-3">
+          <div className="row gap-y p-3  p-md-0">
+            {/* <div className="col-md-4  text-md-end text-center p-3">
               <p className="lead-4">
                 Passionate about creating a technical hand
               </p>
-            </div>
+            </div> */}
 
-            <div className="col-md-4 about_2 text-md-start text-center p-3">
+            <div className="col-md-6 about_2 text-md-start text-center p-3 pb-md-0 ">
               <h6>Our Mission</h6>
               <p className="textt"> 
                 We strive to provide an end-to-end solution for outdoor and
@@ -97,7 +97,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="col-md-4 text-md-start text-center about_2 p-3">
+            <div className="col-md-6 text-md-start text-center about_2 p-3 pb-md-0">
               <h6>Our Vision</h6>
               <p className="textt">
                 We aim to replace the traditional methodology of your media

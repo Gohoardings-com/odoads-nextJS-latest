@@ -75,9 +75,9 @@ export default function Home() {
         <meta property="twitter:property" content="en_US" />
       </Head>
       <Banner />
-      <div className="container">
+
         <Section1 />
-      </div>
+     
       <Floatingnavbar/>
       <Section2 />
       <Section3 />

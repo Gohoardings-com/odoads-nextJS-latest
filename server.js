@@ -24,7 +24,7 @@ app.prepare().then(() => {
   });
 });
 
-const imageServer = express();
+const imageServer = express();   
 const port = 3001;
 imageServer.use(express.json());
 imageServer.set('view engine', 'hbs');

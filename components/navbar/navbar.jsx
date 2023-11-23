@@ -50,16 +50,14 @@ const Navbar = () => {
           <section className="nav-container">
             <p className="nav-logo m-0 me-md-2 ">
               <img
-                src={
-                  isVisible
-                    ? "../../imgs/black_logo-light.png"
-                    : "../../imgs/logo-light.png"
-                }
+                src={"../../imgs/black_logo-light.png"}
                 onClick={() => router.push("/")}
                 style={{ cursor: "pointer" }}
               />
             </p>
+          </section>
 
+          <form className="nav-search d-flex">
             <section
               className={
                 isVisible ? "navbar-mobile-scroll ms-2" : "navbar-mobile ms-2"
@@ -67,33 +65,13 @@ const Navbar = () => {
             >
               <ul className="nav nav-navbar ">
                 <li className="nav-item ">
-                  <p
-                    className={
-                      isVisible
-                        ? "mb-0 nav-link-scroll nav-link "
-                        : "nav-link nav-link-notscroll mb-0"
-                    }
-                  ></p>
-                </li>
-                <li className="nav-item ">
-                  <p
-                    className={
-                      isVisible
-                        ? "mb-0 nav-link-scroll nav-link "
-                        : "nav-link nav-link-notscroll mb-0"
-                    }
-                    onClick={() => router.push("/")}
-                  >
+                  <p className="nav-link mb-0" onClick={() => router.push("/")}>
                     Home
                   </p>
                 </li>
                 <li className="nav-item">
                   <p
-                    className={
-                      isVisible
-                        ? "mb-0 nav-link-scroll nav-link "
-                        : "nav-link nav-link-notscroll mb-0"
-                    }
+                    className="nav-link mb-0"
                     onClick={() => router.push("/about")}
                   >
                     About
@@ -101,11 +79,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <p
-                    className={
-                      isVisible
-                        ? "mb-0 nav-link-scroll nav-link "
-                        : "nav-link nav-link-notscroll mb-0"
-                    }
+                    className="nav-link mb-0"
                     onClick={() => router.push("/features")}
                   >
                     Features
@@ -113,11 +87,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <p
-                    className={
-                      isVisible
-                        ? "mb-0 nav-link-scroll nav-link "
-                        : "nav-link nav-link-notscroll mb-0"
-                    }
+                    className="nav-link mb-0"
                     onClick={() => router.push("/pricing")}
                   >
                     Pricing
@@ -125,21 +95,18 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                   <p
-                    className={
-                      isVisible
-                        ? "mb-0 nav-link-scroll nav-link "
-                        : "nav-link nav-link-notscroll mb-0"
-                    }
+                    className="nav-link mb-0"
                     onClick={() => router.push("/contact")}
                   >
                     Contact
                   </p>
                 </li>
+                <li className="nav-item">
+                  <p className="nav-link mb-0"></p>
+                </li>
               </ul>
             </section>
-          </section>
 
-          <form className="nav-search">
             {loged ? (
               <button
                 className="search-btn  btn-success me-0 lg-btn"
@@ -167,10 +134,8 @@ const Navbar = () => {
       <nav className="navbar ps-0 mbil-nav">
         <div className="nav-container w-100">
           <section className="nav-container  ">
-         
             <span
               class="p-2 ps-0 me-3"
-      
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasExample"
               aria-controls="offcanvasExample"
@@ -179,17 +144,13 @@ const Navbar = () => {
                 style={
                   isVisible
                     ? { color: "#757575", fontSize: "1.35rem" }
-                    : { color: "#fff", fontSize: "1.35rem", opacity: ".7" }
+                    : { color: "black", fontSize: "1.35rem", opacity: ".7" }
                 }
               />
             </span>
             <p className="nav-logo m-0 ">
               <img
-                src={
-                  isVisible
-                    ? "../../imgs/black_logo-light.png"
-                    : "../../imgs/logo-light.png"
-                }
+                src={"../../imgs/black_logo-light.png"}
                 onClick={() => router.push("/")}
                 style={{ cursor: "pointer" }}
               />
@@ -218,14 +179,7 @@ const Navbar = () => {
             )}
           </form>
         </div>
-        {/* <div
-          className="offcanvas offcanvas-start"
-          data-bs-scroll="true"
-          data-bs-backdrop="false"
-          tabIndex="-1"
-          id="offcanvasScrolling"
-          aria-labelledby="offcanvasScrollingLabel"
-        > */}
+
         <div
           class="offcanvas offcanvas-start"
           tabindex="-1"
@@ -312,12 +266,7 @@ const Navbar = () => {
             background-color: transparent;
             padding: 16px 0px;
           }
-          .navbar-mobile {
-            border-left: 1px solid transparent;
-          }
-          .navbar-mobile-scroll {
-            border-left: 1px solid #eeeeee;
-          }
+
           .nav-container {
             display: flex;
             justify-content: space-between;
@@ -345,28 +294,21 @@ const Navbar = () => {
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.8em;
+            font-size: 0.71em;
+            color: rgb(0 0 0 / 65%);
             word-spacing: 2px;
             padding-left: 1.125rem;
             padding-right: 1.125rem;
-            padding-top: 0.3em;
+        
             font-family: sans-serif;
             padding-bottom: 0;
           }
-          .nav-link-notscroll {
-            color: rgba(255, 255, 255, 0.65);
-          }
-          .nav-link-notscroll:hover {
-            color: #ffffff;
-          }
-          .nav-link-scroll {
-            color: #979797;
-          }
-          .nav-link-scroll:hover {
+
+          .nav-link:hover {
             color: black;
           }
 
-          @media screen and (max-width: 500px) {
+          @media screen and (max-width: 720px) {
             // .mb-nav {
             //   width: 32vw;
             // }
@@ -403,8 +345,8 @@ const Navbar = () => {
 
           .btn-success {
             color: #fff;
-            background-color: #3cd458;
-            border-color: #3cd458;
+            background-color: #5EDF2D;
+            border-color: #5EDF2D;
           }
 
           .search-btn:hover {

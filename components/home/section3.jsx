@@ -5,8 +5,8 @@ const Section3 = () => {
   return (
     <>
       <section
-        className="section  bg-gray "
-        style={{ backgroundColor: "#FAFBFB" }}
+        className="section mt-5 mt-md-3"
+
       >
         <div className="container">
           <header className="section-header text-center">

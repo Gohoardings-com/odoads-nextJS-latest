@@ -1,12 +1,13 @@
 import React from "react";
 import { CiMobile2, CiSettings } from "react-icons/ci";
 import { TbTools } from "react-icons/tb";
+import Slider from "react-slick";
 import { BsRecycle, BsChat, BsLayers } from "react-icons/bs";
 
 const Section1 = () => {
   const data = [
     {
-      icon: <CiMobile2 className="icon_homepage" />,
+      icon: "../../imgs/media inventory.jpg",
       heading: " Media Inventory",
       contant: `Dedicated CRM for OOH Industry to manage media assets,
     generation of plan PPT/ Excel/ PDF including sites
@@ -14,40 +15,65 @@ const Section1 = () => {
     map and Google earth plotting.`,
     },
     {
-      icon: (
-        <CiSettings className="icon_homepage" style={{ color: "#50a1ff" }} />
-      ),
+      icon: "../../imgs/Campaigns Management.jpg",
       heading: " Campaigns Management",
       contant: `Booking, blocking, FOC and rotational information of campaigns.
    Cost sheet, campaign profitability, site performance, PO management.`,
     },
     {
-      icon: <TbTools className="icon_homepage" style={{ color: "#926dde" }} />,
+      icon: "../../imgs/Leads  Media Request.jpg",
       heading: "Leads / Media Request",
       contant: `This enables marketing and sales teams to work 
   together on the leads, never missing out any interaction or touch-points..`,
     },
     {
-      icon: <BsLayers className="icon_homepage" style={{ color: "#ffba00" }} />,
+      icon: "../../imgs/Invoice & Contracts.jpg",
       heading: "Invoice & Contracts",
       contant: `Estimations, invoicing, credit notes, payments, revenue, outstanding, contracts.`,
     },
     {
-      icon: (
-        <BsRecycle className="icon_homepage" style={{ color: "#ff4954" }} />
-      ),
+      icon: "../../imgs/business intelligence.jpg",
       heading: "Business Intelligence",
       contant: `Dashboards to track your business growth with 150+ custom reports.`,
     },
     {
-      icon: <BsChat className="icon_homepage" style={{ color: "#3cd458" }} />,
+      icon: "../../imgs/customer managment.jpg",
       heading: "Customer Management",
       contant: `Managing customer and their contact information, Customer interaction history,
    Sending the documents directly from the program and many more.`,
     },
   ];
+  {
+    var settings = {
+      // dots: true,
+      infinite: true,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      autoplay: false,
+      speed: 3500,
+
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 2,
+          },
+        },
+        {
+          breakpoint: 720,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          },
+        },
+      ],
+    };
+  }
+
+  let slider = settings;
   return (
-    <div className="container-xxl   container-xl container-lg container-md  mt-4 mt-md-0">
+    <div className="container-xxl   container-xl container-lg container-md  mt-4 my-md-5 ">
       <section className="section pb-0">
         <div className="">
           <header className="section-header text-center">
@@ -60,35 +86,61 @@ const Section1 = () => {
             </p>
           </header>
           <div className="row gap-y">
-            <div
-              className="col-md-8 col-12 mx-md-auto my-3 my-md-5 p-0"
-              style={{ textAlign: "center" }}
-            >
-              <iframe
-              
-                src="https://www.youtube.com/embed/_tAziy85tX0?controls=0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                className="vdo-1"
-              ></iframe>
-            </div>
-            <div className="w-100"></div>
-            {data.map((items, index) => (
-              <div className="col-md-6  col-12" key={index}>
-                <div className="media my-2">
-                  <div>{items.icon}</div>
-                  <div className="media-body">
-                    <h5 className="lead2"> {items.heading}</h5>
-                    <p className="textt">{items.contant}</p>
+          <Slider {...settings}>
+              {data.map((items, index) => (
+                <div className="p-3" key={index}>
+                  <div className="card-wrapper card border-0 p-3">
+                    <div
+                      className="background-image"
+                      style={{
+                        backgroundImage: `url('${items.icon}')`,
+                      }}
+                    />
+                    <div className="content">
+                      <h5 className="lead2 mt-2"> {items.heading}</h5>
+                      <p className="textt">{items.contant}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-     
+              ))}
+            </Slider>
           </div>
         </div>
       </section>
       <style jsx>
         {`
+          .card-wrapper {
+            position: relative;
+            height: 220px;
+            background-image: linear-gradient(#dbdbdb, #ffffff);
+            overflow: hidden;
+            transition: transform 0.3s ease; 
+          }
+          .card-wrapper:hover {
+            transform: scale(1.1);
+            
+          }
+          .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+        
+
+          .card-wrapper:hover .background-image {
+            opacity: .5;
+          }
+
+          .content {
+            position: relative;
+            z-index: 1;
+          }
           h2 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
@@ -99,15 +151,14 @@ const Section1 = () => {
             font-family: Dosis, sans-serif !important;
           }
 
-          p{
+          p {
             font-size: 1.15rem;
             line-height: 1.9;
             color: #757575;
             letter-spacing: 0.5px;
-            
           }
-          .textt{
-            font-size: .9rem;
+          .textt {
+            font-size: 0.9rem;
             line-height: 1.8;
             color: #757575;
             letter-spacing: 0.5px;
@@ -121,17 +172,12 @@ const Section1 = () => {
             letter-spacing: 0.5px;
             font-family: Dosis, sans-serif !important;
           }
+          .card-wrapper:hover .textt,.lead2{
+            color: black;
+          }
           .icon {
             font-size: 2rem;
           }
-          
-          .vdo-1{
-           width:43vw;
-           height:50vh;
-          }.
-        
-
-
         `}
       </style>
     </div>

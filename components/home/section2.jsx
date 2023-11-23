@@ -73,13 +73,12 @@ const Section2 = () => {
   let slider = settings;
   return (
     <section
-      className="section  section-2"
+      className="section  section-2 py-md-5"
       style={{
-        backgroundImage:
-          "linear-gradient(135deg, #f9f7ff 0%, #fff 50%, #f6f3ff 100%)",
+       backgroundColor:"#dcdcdc"
       }}
     >
-      <div className="section-header container">
+      <div className="section-header container ">
         <div className="row gap-y align-items-center">
           <div className="col-md-6 opcty ms-md-5 ">
             <h2 className="mb-3">Why we stand out?</h2>
@@ -114,9 +113,9 @@ const Section2 = () => {
             <br />
             {/*slider component */}
             <div
-              className="row gap-y slick-initialized slick-slider slick-dotted"
+              className="row gap-y slick-initialized slick-slider slick-dotted hide-arrow"
               data-provide="slider"
-              data-slides-to-show="3"
+              data-slides-to-show="3" 
               data-slides-to-scroll="2"
               data-dots="true"
             >
@@ -133,7 +132,7 @@ const Section2 = () => {
           </div>
           <div className="col-lg-5 ms-auto mt-5 me-1">
             <img
-              src="../../imgs/home-blocks-and-elements.jpg"
+              src="../../imgs/why_us.jpg"
               alt="..."
               className="home-img"
             />
@@ -149,7 +148,7 @@ const Section2 = () => {
             font-weight: 400;
           }
           .icon {
-            color: #868e96 !important;
+            color: #323d47 !important;
             font-size: 2rem !important;
           }
           h2 {
@@ -169,6 +168,7 @@ const Section2 = () => {
             width: 90%;
             height: auto;
             float: right;
+            border-radius:10%;
           }
         `}
       </style>
