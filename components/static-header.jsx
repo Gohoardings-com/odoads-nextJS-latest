@@ -13,7 +13,7 @@ const Header = (props) => {
         zIndex: 1,
         position : "relative",
         backgroundSize: "cover",
-        height: "70vh",
+        height: "75vh",
       }}
     >
       <div className="container pt-1">
@@ -23,7 +23,7 @@ const Header = (props) => {
         </div>
       <div className="  text-center text-light all-content">
         <div className="row ">
-          <h2 className=".lead-1">{props.lead1}</h2>
+          <h2 className="">{props.lead1}</h2>
           <p className="my-3 fw-light">{props.lead2}</p>
         </div>
       </div>
@@ -46,7 +46,7 @@ const Header = (props) => {
             font-size: 2.4rem;
             margin-bottom: 0.5rem;
             line-height: 1.5;
-            color: #FFFFFF !important;
+            color: #323d47 !important;
             letter-spacing: 0.5px;
           
             font-family: Dosis, sans-serif !important;
@@ -54,7 +54,7 @@ const Header = (props) => {
           p{
             font-size: 1.1rem;
             line-height: 1.9;
-            color: rgba(255,255,255,0.85)!important;
+            color: black!important;
             letter-spacing: 0.5px;
             
           }

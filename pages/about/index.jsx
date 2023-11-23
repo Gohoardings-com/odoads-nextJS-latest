@@ -14,7 +14,8 @@ const About = () => {
       <Head>
         <link rel="canonical" href={`https://www.odoads.com${asPath}`} />
         <title>
-        About Us - Inventory Management Software Tools for OOH/DOOH Media Owners | OdoAds
+          About Us - Inventory Management Software Tools for OOH/DOOH Media
+          Owners | OdoAds
         </title>
         <meta charSet="utf-8" />
 
@@ -45,10 +46,7 @@ const About = () => {
           content="Here OdoAds provides OOH/DOOH Media Booking Management Software Tool for Media Owners/Vendors, That will help them to manage their all inventories and bookings. | OdoAds"
         />
         <meta property="og:type" content="en_US" />
-        <meta
-          property="og:image"
-          href="https://odoads.com/imgs/14.jpg"
-        />
+        <meta property="og:image" href="https://odoads.com/imgs/14.jpg" />
         <meta property="og:url" href={asPath} />
         <meta property="og:property" content="en_US" />
         <meta
@@ -64,20 +62,17 @@ const About = () => {
           content="Here OdoAds provides OOH/DOOH Media Booking Management Software Tool for Media Owners/Vendors, That will help them to manage their all inventories and bookings. | OdoAds"
         />
         <meta property="twitter:type" content="en_US" />
-        <meta
-          property="twitter:image"
-          href="https://odoads.com/imgs/14.jpg"
-        />
+        <meta property="twitter:image" href="https://odoads.com/imgs/14.jpg" />
         <meta property="twitter:url" href={asPath} />
         <meta property="twitter:property" content="en_US" />
       </Head>
       <Header
-        url="../../imgs/14.jpg"
+        url="../../imgs/about_image.jpg"
         lead1="Time to know us"
         lead="Save your time by using professional technical hand."
         lead2="Save your time by using professional technical hand."
       />
-      <Floatingnavbar/>
+      <Floatingnavbar />
       <section className="section">
         <div className="container">
           <div className="row gap-y p-3  p-md-0">
@@ -89,7 +84,7 @@ const About = () => {
 
             <div className="col-md-6 about_2 text-md-start text-center p-3 pb-md-0 ">
               <h6>Our Mission</h6>
-              <p className="textt"> 
+              <p className="textt">
                 We strive to provide an end-to-end solution for outdoor and
                 indoor media business. We are a family catering a system at
                 which you can handle all your media inventories, sales,
@@ -100,15 +95,16 @@ const About = () => {
             <div className="col-md-6 text-md-start text-center about_2 p-3 pb-md-0">
               <h6>Our Vision</h6>
               <p className="textt">
-                We aim to replace the traditional methodology of your media
-                handling approach which is stressful and also time taking.
+                We strive to revolutionize your media handling, replacing
+                outdated methods that cause stress and time constraints. Our aim
+                is to introduce a more efficient approach, alleviating pressures
+                and boosting overall productivity.
               </p>
             </div>
           </div>
-
         </div>
-          <Section3 />
-          <BubblesAnimation/>
+        <Section3 />
+        <BubblesAnimation />
       </section>
       <style jsx>{`
         .lead-4 {
@@ -116,10 +112,9 @@ const About = () => {
           font-weight: 300;
           line-height: 1.6;
           color: #757575;
-          
         }
-        .textt{
-          font-size: .97rem;
+        .textt {
+          font-size: 0.97rem;
           line-height: 1.8;
           color: #757575;
           letter-spacing: 0.5px;
@@ -134,7 +129,7 @@ const About = () => {
           font-family: Dosis, sans-serif !important;
         }
       `}</style>
-      <Footer/>
+      <Footer />
     </>
   );
 };

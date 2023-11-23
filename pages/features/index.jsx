@@ -113,22 +113,22 @@ const Features = () => {
       </Head>
       <Floatingnavbar />
       <Header
-        url="../../imgs/16.jpg"
+        url="../../imgs/istockphoto-1321462048-612x612.jpg"
         lead1="Why our tech stands at peak?"
         lead2="ODO is faster than your thoughts, friendly than your friends and advanced than this century"
       />
 
       <section>
-        <div className="container p-3 p-md-0">
+        <div className="container p-3 p-md-0 pt-md-3">
           <div className="row  ">
             <div className="col-md-6 mt-5 ">
               <h2 className="lead-3 ">Trusted by the thousands</h2>
               <p className="lmt">
-                30% of the media owners use ODO to handle and <br />
-                operate their media.
+                30% of the media owners use ODO to handle and operate their
+                media.
               </p>
 
-              <div className="rating mb-2 mt-7">
+              <div className="rating mb-2">
                 <label>
                   <FaStar className="text-warning" />
                 </label>
@@ -153,11 +153,11 @@ const Features = () => {
                 handled
               </q>
             </div>
-
-            <div className="col-md-6 text-end bbb">
+            <div className="col-md-1 text-end bbb"></div>
+            <div className="col-md-5 text-end bbb">
               <div className={`section-img ${imageHidden ? "show " : "hide"}`}>
                 <img
-                  src="../../imgs/ipad-1.png"
+                  src="../../imgs/5995355.png"
                   alt="..."
                   data-aos="fade-left"
                   className="img-1"
@@ -175,65 +175,35 @@ const Features = () => {
             <h2 className="lead">Our Key Features</h2>
           </header>
 
-          <div className="gradient-cards">
-            <div className="card all-card">
-              <div className="container-card2 bg-green-box">
-                <h5 className="d-flex justify-content-center">
-                  <div className="card-icon">
-                    <TfiLayoutMediaLeft className="card-icon-i" />
-                  </div>
-                </h5>
-                <p className="card-title mb-0">Inventory Management</p>
-                <p className="card-descript">
-                  Dedicated CRM for OOH Industry to manage media assets,
-                  generation of plan PPT/Excel/PDF
-                </p>
-              </div>
+          <div className="row mt-md-4">
+            <div className="col-12 col-md-4 text-center">
+              <img src="../../imgs/verify.png" alt="..." className="img-2" />
+              <h6 className="card-icon-text fw-bold mt-2">Register</h6>
+              <h6 className="card-icon-text mt-4">
+                From our website; odoads.com, register your company just in a
+                minute.
+              </h6>
             </div>
-
-            <div className="card all-card mb-0">
-              <div className="container-card bg-white-box">
-                <h5 className="d-flex justify-content-center">
-                  <div className="card-icon">
-                    <RiPencilRuler2Line className="card-icon-i" />
-                  </div>
-                </h5>
-                <p className="card-title mb-0">Media Management</p>
-                <p className="card-descript">
-                  Information of sites, rates, availability, images with live
-                  Google map plotting
-                </p>
-              </div>
+            <div className="col-12 col-md-4 text-center">
+              <img src="../../imgs/save-time.png" alt="..." className="img-2" />
+              <h6 className="card-icon-text fw-bold mt-2">
+                Organize Your Media
+              </h6>
+              <h6 className="card-icon-text mt-4">
+                Upload all your media and related details at our system.
+              </h6>
             </div>
-
-            <div className="card all-card ">
-              <div className="container-card2 bg-yellow-box">
-                <h5 className="d-flex justify-content-center">
-                  <div className="card-icon">
-                    <BsGraphUpArrow className="card-icon-i" />
-                  </div>
-                </h5>
-                <p className="card-title mb-0">Sales Management</p>
-                <p className="card-descript">
-                  This enables to handle estimation, invoicing, credit notes,
-                  payments and other expenses
-                </p>
-              </div>
-            </div>
-
-            <div className="card all-card">
-              <div className="container-card bg-blue-box">
-                <h5 className="d-flex justify-content-center">
-                  <div className="card-icon">
-                    <FaBullhorn className="card-icon-i" />
-                  </div>
-                </h5>
-                <p className="card-title mb-0">Campaign Management</p>
-                <p className="card-descript">
-                  Booking, blocking, rotational information of campaign, site
-                  performance
-                </p>
-              </div>
+            <div className="col-12 col-md-4 text-center">
+              <img
+                src="../../imgs/recruitment.png"
+                alt="..."
+                className="img-2"
+              />
+              <h6 className="card-icon-text fw-bold mt-2">Save Your Time</h6>
+              <h6 className="card-icon-text mt-4">
+                Ready to go. Experience a better performance in your deals
+                andsave your time.
+              </h6>
             </div>
           </div>
         </div>
@@ -248,51 +218,57 @@ const Features = () => {
               video.
             </p>
           </header>
-          <div className="row align-items-center">
-            <div className="col-md-6">
+
+          <div className="work ">
+            <div className="work-card text-center">
               <img
-                className="img-fluid"
-                src="../../imgs/business-people.jpg"
-                alt="watch a video"
+                src="../../imgs/change-management.png"
+                alt="..."
+                className="img-3"
               />
+              <h6 className="card-icon-text fw-bold mt-2">
+                Inventory Management
+              </h6>
+              <h6 className="card-icon-text mt-4">
+                Dedicated CRM for OOH Industry to manage media assets,
+                generation of plan PPT/Excel/PDF
+              </h6>
             </div>
+            <div className="work-card text-center">
+              <img
+                src="../../imgs/social-media.png"
+                alt="..."
+                className="img-3"
+              />
+              <h6 className="card-icon-text fw-bold mt-2">Media Management</h6>
+              <h6 className="card-icon-text mt-4">
+                Information of sites, rates, availability, images with live
+                Google map plotting
+              </h6>
+            </div>
+            <div className="work-card text-center">
+              <img src="../../imgs/profit-growth.png" alt="..." className="img-3" />
+              <h6 className="card-icon-text fw-bold mt-2">Sales Management</h6>
+              <h6 className="card-icon-text mt-4">
+              This enables to handle estimation,
+invoicing, credit notes, payments and
 
-            <div className="col-md-6 ">
-              <ol className="step mt-1 ps-0">
-                <li className="step-item">
-                  <div className="step-content">
-                    <h6>Register</h6>
-                    <p>
-                      From our website; odoads.com, register your company just
-                      in a minute.
-                    </p>
-                  </div>
-                </li>
-
-                <li className="step-item">
-                  <div className="step-content">
-                    <h6>Organize Your Media</h6>
-                    <p>
-                      Upload all your media and related details at our system.
-                    </p>
-                  </div>
-                </li>
-
-                <li className="step-item">
-                  <div className="step-content">
-                    <h6>Save Your Time</h6>
-                    <p>
-                      Ready to go. Experience a better performance in your deals
-                      andsave your time.
-                    </p>
-                  </div>
-                </li>
-              </ol>
+other expenses
+              </h6>
+            </div>
+            <div className="work-card text-center">
+              <img src="../../imgs/marketing.png" alt="..." className="img-3" />
+              <h6 className="card-icon-text fw-bold mt-2">Campaign Management</h6>
+              <h6 className="card-icon-text mt-4">
+              Booking, blocking, rotational
+information of campaign,
+site performance
+              </h6>
             </div>
           </div>
         </div>
       </section>
-      <section className="section bg-gray pt-6 pb-6">
+      <section className="section bg-gray pt-6 pb-3 pb-md-5">
         <div className="container p-3 p-md-0">
           <header className="section-header text-center my-5">
             <h2 className="lead">One Click Features</h2>
@@ -317,9 +293,20 @@ const Features = () => {
           .bbb {
             overflow: hidden; /* Add this line to the container to hide overflowing content */
           }
-          @media screen and (max-width: 500px) {
+          .img-2 {
+            height: 40px;
+            width: auto;
+          }
+          .img-3 {
+            height: 50px;
+            width: auto;
+          }
+          .work-card {
+            padding: 1rem;
+          }
+          @media screen and (max-width: 720x) {
             .bbb {
-              display:none;
+              display: none;
             }
           }
           .section-img {
@@ -437,6 +424,9 @@ const Features = () => {
             font-size: 1.23047rem;
             letter-spacing: 0.5px;
             font-family: Dosis, sans-serif !important;
+          }
+          .work {
+            display: flex;
           }
         `}
       </style>

@@ -293,23 +293,6 @@ hr {
 .media {
   display: flex;
 }
-
-.container-card,
-.container-card2 {
-  border: none;
-
-  background-clip: padding-box;
-  border-radius: 40px;
-  padding: 15px 20px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
-}
-.container-card2 {
-  background: linear-gradient(45deg, #735f9b, #926dde, #926dde, #926dde);
-}
-.container-card {
-  background: linear-gradient(45deg, #5ca65c, #3cd458, #3cd458, #3cd458);
-}
-
 .card-title {
   font-weight: 500;
   color: white !important;
@@ -364,8 +347,8 @@ hr {
   height: 100%;
   background-image: linear-gradient(
     to top,
-    rgba(6, 118, 103, 0.579) 0%,
-    RGB(103, 138, 153) 100%
+    rgba(243, 243, 243, 0.579) 0%,
+    rgba(243, 243, 243, 0.579) 100%
   );
 }
 .contact-pg {
