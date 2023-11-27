@@ -28,22 +28,6 @@ useEffect(() => {
   setLogged(userIsAuthenticated);
 }, []);
 
-  const initializeRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-
-      document.body.appendChild(script);
-    });
-  };
-
   const handlePlan = async (plan) => {
     let amount;
     switch (plan) {
@@ -72,46 +56,14 @@ useEffect(() => {
       return;
     }
 
-    const res = await initializeRazorpay();
-
-    if (!res) {
-      alert("Razorpay SDK Failed to load");
-      return;
-    }
-
     const data = await payment(amount);
-    var options = {
-      key: "rzp_test_cSCGi16XKuPDax",
-      name: "Gohoardings Solution LLP",
-      currency: "INR",
-      amount: data.amount,
-      order_id: data.id,
-      description: "Thank you",
-      image: "https://www.gohoardings.com/images/web_pics/logo.png",
-      handler: async function (response) {
-        const isSignatureValid = await verifyPay(
-          response.razorpay_payment_id,
-          response.razorpay_order_id,
-          response.razorpay_signature
-        );
-
-        if (!isSignatureValid) {
-          return res.status(400).end();
-        } else {
-          console.log("success payment");
-          await updatePlan(amount);
-          router.push("/admin")
-        }
-      },
-      prefill: {
-        name: "demo",
-        email: "demo@gmail.com",
-        contact: "9988776655",
-      },
-    };
-
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+if (data.success) {
+	if (typeof window !== 'undefined') {
+      window.open(data.redirectUrl, '_blank');
+    }
+    } else {
+      console.error('Error:', data.message);
+    }
   };
 
   return (

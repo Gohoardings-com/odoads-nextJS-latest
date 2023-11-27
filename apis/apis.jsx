@@ -17,7 +17,7 @@ let staff = "staff";
 let staffRoles = "staffRoles";
 let permission = "permissions";
 let leadStatus = "leadStatus";
-let razorpay = "razorpay";
+let phonepe = "phonepe";
 let excel = "excel";
 
 export const updatePlan = async (amount) => {
@@ -26,17 +26,17 @@ export const updatePlan = async (amount) => {
 };
 
 export const checkplan = async () => {
-  const { data } = await instance.get(razorpay);
+  const { data } = await instance.get(phonepe);
   return data;
 };
 
 export const payment = async (amount) => {
-  const { data } = await instance.post(razorpay,{amount});
+  const { data } = await instance.post(phonepe,{amount});
   return data;
 };
 
-export const verifyPay = async (pay_id,order_id,res_signature) => {
-  const { data } = await instance.put(razorpay,{pay_id,order_id,res_signature});
+export const verifyPay = async () => {
+  const { data } = await instance.put(phonepe);
   return data;
 };
 

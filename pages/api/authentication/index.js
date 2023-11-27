@@ -48,10 +48,6 @@ export const loginEmail = catchError(async (req, res) => {
       const matchPassword = bcrypt.compareSync(password, datapas);
       if (matchPassword) {
         const id = `${stafflogin[0].staffid}&${userid}`;
-        res.setHeader(
-          "Set-Cookie",
-          cookie.serialize(String(`odoads_goh`), { expires: Date.now() })
-        );
         token(id, 200, res);
       } else {
         return res.status(206).json({ message: "Password Not matched" });

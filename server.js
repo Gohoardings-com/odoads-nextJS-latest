@@ -10,6 +10,10 @@ const fs = require('fs');
 const Handlebars = require('handlebars');
 const pdf = require('html-pdf');
 const cors = require('cors');
+const crypto = require ('crypto');
+var uniqid = require('uniqid');
+var axios = require('axios');
+var sha256 = require('sha256');
 
 // Increase the maximum number of listeners
 require('events').EventEmitter.defaultMaxListeners = 25;
@@ -141,6 +145,61 @@ imageServer.post('/send-email', (req, res) => {
 
 
 });
+
+imageServer.post('/handlePay', async (req,res) => {
+  try {
+    const merchantTransactionId = uniqid('T');
+    const data = {
+        merchantId: 'M16GKDDZZQAI',
+        merchantTransactionId: merchantTransactionId,
+        merchantUserId: "MUID1433423",
+        name: "uday",
+        amount: 100,
+        redirectUrl: `http://localhost:3000/api/phonepe/${merchantTransactionId}`,
+        redirectMode: 'PUT',
+        mobileNumber: "9999999999",
+        paymentInstrument: {
+            type: 'PAY_PAGE'
+        }
+    };
+    
+    const payload = JSON.stringify(data);
+    const payloadMain = Buffer.from(payload).toString('base64');
+    const keyIndex = 1;
+    const salt_key = '2096f083-a33e-4b4f-a418-8733b13060aa'
+    const string = payloadMain + '/pg/v1/pay' + salt_key;
+    const sha256 = crypto.createHash('sha256').update(string).digest('hex');
+    
+    const checksum = sha256 + '###' + keyIndex;
+    
+    const prod_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay"
+    const options = {
+        method: 'POST',
+        url: prod_URL,
+        headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-VERIFY': checksum
+        },
+        data: {
+            request: payloadMain
+        }
+    };
+    
+    axios.request(options).then(function (response) {
+        return res.redirect(response.data.data.instrumentResponse.redirectInfo.url)
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+
+} catch (error) {
+    res.status(500).send({
+        message: error.message,
+        success: false
+    })
+}
+})
 
 // Assuming the 'public' folder is in the root directory
 const uploadDirectory = path.join(__dirname, 'public', 'upload');

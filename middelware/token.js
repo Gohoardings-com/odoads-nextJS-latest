@@ -34,9 +34,9 @@ export const verifyToken = async (req, res, next) => {
             if (err) {
                 return res.status(206).json({message: "InValid Token"});
             } else {
-const data = user.id
-const getid = data.split('&')
-if(getid){
+        const data = user.id
+        const getid = data.split('&')
+        if(getid){
             const staffid = getid[0]
             const comapny = getid[1]
           req.id = {userid:  staffid, code : comapny}
