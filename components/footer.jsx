@@ -9,8 +9,9 @@ const Footer = () => {
         <div className="row gap-y align-items-center ">
           <div className="col-md-6 col-9 ps-3 ps-md-0">
             <p style={{ margin: 0 }}>
-              © {new Date().getFullYear()} Odoads by{" "}
-              <Link href="https://www.gohoardings.com">Gohoardings Solution LLP</Link>, All
+              © {new Date().getFullYear()}{" "}
+              <img src={"../../imgs/black_logo-light.png"}/> by{" "}
+              <Link href="https://www.gohoardings.com">Gohoardings</Link>, All
               rights reserved.
             </p>
             <Link href="/disclaimer" style={{ fontSize: "10px" }}>
@@ -24,16 +25,19 @@ const Footer = () => {
 
           <div className="col-md-6 col-3  text-end ">
             <div className="social">
-              <Link href="https://www.facebook.com/odoads" target="_blank" className="p-2">
-                <FaFacebookF style={{fontSize:"13px",color:"#A9AAAE"}}  />
+              <Link
+                href="https://www.facebook.com/odoads"
+                target="_blank"
+                className="p-2"
+              >
+                <FaFacebookF style={{ fontSize: "13px", color: "#A9AAAE" }} />
               </Link>
               <Link
                 href="https://www.linkedin.com/company/odoads"
                 target="_blank"
-        
                 className="p-2"
               >
-                <FaLinkedinIn  style={{fontSize:"15px",color:"#A9AAAE"}}  />
+                <FaLinkedinIn style={{ fontSize: "15px", color: "#A9AAAE" }} />
               </Link>
             </div>
           </div>
@@ -50,8 +54,10 @@ const Footer = () => {
             color: #757575;
             background-color: #fff;
           }
-
-          
+          img{
+            height: .72rem;
+            margin-bottom: 2.1px;
+          }
         `}
       </style>
     </footer>

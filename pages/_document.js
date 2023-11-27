@@ -15,15 +15,17 @@ export default function Document() {
           })(window,document,'script','dataLayer','GTM-PC6HJMW')
           `}
         </Script>
+       
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-5X5HX08ZY1"
+          src="https://www.googletagmanager.com/gtag/js?id=G-26FJP78MV3"
         ></Script>
         <Script strategy="lazyOnload" id="lazyOnload">
           {`
-window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-5X5HX08ZY1');
+window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-26FJP78MV3');
 `}
         </Script>
+
       </Head>
       <body>
         <Main />

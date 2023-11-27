@@ -9,12 +9,12 @@ const BubblesAnimation = () => {
           <h2>Get It Now</h2>
           <p className=" mt-3 fw-light ps-3 pe-3 ms-md-1 pe-md-1">
             If you have made your decision to own this services, go ahead and
-            press on the  following button to get registered in less than
-            a minute.
+            press on the following button to get registered in less than a
+            minute.
           </p>
         </header>
         <p className="text-center ">
-          <Link className="btn p-btn" href="/login">
+          <Link className="btn p-btn" href="/login" >
             Start Free Now
           </Link>
         </p>
@@ -22,17 +22,15 @@ const BubblesAnimation = () => {
 
       <style jsx>
         {`
-        
           .wrapper {
             height: 60vh;
             width: 100%;
             position: relative;
-            background: linear-gradient(-45deg,#667eea,#764ba2,#00cdac,#3cba92);
+            background-color: #dbdbdb;
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-   
           }
-
+       
           @keyframes gradient {
             0% {
               background-position: 0% 50%;
@@ -44,7 +42,7 @@ const BubblesAnimation = () => {
               background-position: 0% 50%;
             }
           }
-          
+
           .wrapper .container {
             position: absolute;
             top: 50%;
@@ -55,19 +53,18 @@ const BubblesAnimation = () => {
             font-size: 3.5rem;
             margin-bottom: 0.5rem;
             line-height: 1.5;
-            color: #FFFFFF !important;
+            color: rgb(0 0 0 / 65%);
             letter-spacing: 0.5px;
-          
+
             font-family: Dosis, sans-serif !important;
           }
-          p{
+          p {
             font-size: 1.15rem;
             line-height: 1.9;
-            color: rgba(255,255,255,0.85)!important;
+            color: black;
             letter-spacing: 0.5px;
-            
           }
-          @media screen and (max-width:500px) {
+          @media screen and (max-width: 720px) {
             .wrapper {
               height: 80vh;
             }

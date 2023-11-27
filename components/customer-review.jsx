@@ -61,30 +61,23 @@ const Review = () => {
   let slider = settings;
   return (
     <>
-      <div
-        className="testimonial-slider  my-4"
-        style={{ backgroundColor: "#FAFBFB" }}
-      >
+      <div className="testimonial-slider  my-4 hide-arrow">
         <Slider {...slider}>
           {testimonials.map((e, i) => (
-            <div className="testimonial p-3" key={i}>
-              <div className="card border ">
+            <div className=" p-3" key={i}>
+              <div className="card border-0 testimonial">
                 <div className="card-body">
                   <div className="row">
                     <div className="col-auto mr-auto">
                       <h6
                         style={{
-                          fontWeight: 300,
+                          fontWeight: 500,
                           fontFamily: "Dosis,sans-serif",
                           color: "#323d47",
                         }}
                       >
                         {e.customer}
                       </h6>
-                    </div>
-
-                    <div className="col-auto">
-                      <div className="rating "></div>
                     </div>
                   </div>
 
@@ -102,6 +95,9 @@ const Review = () => {
             line-height: 1.6;
             color: #757575;
             letter-spacing: 0.6px;
+          }
+          .testimonial {
+            background-image: linear-gradient(#dbdbdb, #ffffff);
           }
         `}
       </style>
