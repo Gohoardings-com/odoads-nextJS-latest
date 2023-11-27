@@ -358,3 +358,7 @@ export const deleteInvoice = async (id) => {
   return data;
 };
 
+export const enquiryApi = async (name, email, phone, message) => {
+  const { data } = await instance.post("enquiries", { name, email, phone, message });
+  return data
+}

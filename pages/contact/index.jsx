@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import ContactForm from "../../components/contact-form";
-import Navbar from "../../components/navbar/navbar";
+import Header from "../../components/static-header";
 import Footer from "@/components/footer";
 import Floatingnavbar from "@/components/navbar/navbar-float";
 
@@ -71,107 +71,61 @@ const Contact = () => {
         <meta property="twitter:property" content="en_US" />
       </Head>
       <Floatingnavbar />
-      <div
-        className="parallax-container contact-pg"
-        style={{
-          backgroundImage: `url(../../imgs/contact-bg.jpg)`,
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          zIndex: 1,
-          position: "relative",
-          backgroundSize: "cover",
-          height: "87vh",
-        }}
-      >
-        <div className="container pt-1">
-          <div className="mbil-navv ">
-            <Navbar />
-          </div>
-          <div className=" text-center text-light mt-md-5 mt-4 p-2">
-            <div className="row ">
-              <h1 className="lead-1">Contact Us</h1>
-              <p className="my-md-3 textt fw-light">
-                You have come this far-why not get in touch?
-              </p>
+
+      <Header
+        url="../../imgs/contactBanner.jpg"
+        lead1="Contact Us"
+        lead2="You have come this far-why not get in touch?"
+      />
+
+      <section className="section bg-gray text-center  p-3 p-md-0 my-5">
+        <div className="container">
+          <div className="row mt-md-4">
+            <div className="col-12 col-md-4 text-center">
+              <img src="../../imgs/telephone.png" alt="..." className="img-2" />
+              <h6 className="card-icon-text fw-bold mt-2 text-dark">Call</h6>
+              <h6 className="card-icon-text mt-4">
+                Call for any information and support
+                <p className="mt-3">
+                  <a href="tel:+917777871717">+91 7777871717</a>
+                </p>
+              </h6>
             </div>
-            <div className="row text-center mt-md-5 ">
-              <div className="col-4 ">
-                <div className="card border">
-                  <h5 className="mb-3 ">Call</h5>
-                  <p className="small-1 ">
-                    Call for any information and support
-                  </p>
-                  <a href="tel:+917777871717" className="">
-                    +91 7777871717
-                  </a>
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="card border ">
-                  <h5 className="mb-3 ">Email</h5>
-                  <p className="small-1 ">For any offical help and support</p>
+            <div className="col-12 col-md-4 text-center border-box">
+              <img src="../../imgs/mail.png" alt="..." className="img-2" />
+              <h6 className="card-icon-text fw-bold mt-2 text-dark">Email</h6>
+              <h6 className="card-icon-text mt-4">
+                Email for any offical help and support <br />
+                <p className="mt-3">
+                  {" "}
                   <a href="mailto:sales@odoads.com" className="">
                     sales@odoads.com
-                  </a>{" "}
-                  <a href="mailto:info@odoads.com" className="">
-                    info@odoads.com
                   </a>
-                </div>
-              </div>
-
-              <div className="col-4">
-                <div className="card border ">
-                  <h5 className="mb-3 ">Meet</h5>
-                  <p className="small-1 ">Let's have a coffee together</p>
-                  <a
-                    href="https://maps.google.com/maps?ll=28.545099,77.333688&amp;z=16&amp;t=m&amp;hl=en&amp;gl=IN&amp;mapclient=embed&amp;daddr=ODOads%2082%2C%20E-Block%20Rd%20Sector%206%20Noida%2C%20Uttar%20Pradesh%20201301@28.5450993,77.3336882"
-                    className="
+                </p>
+                <a href="mailto:info@odoads.com" className="">
+                  info@odoads.com
+                </a>
+              </h6>
+            </div>
+            <div className="col-12 col-md-4 text-center">
+              <img src="../../imgs/location.png" alt="..." className="img-2" />
+              <h6 className="card-icon-text fw-bold mt-2 text-dark">Meet</h6>
+              <h6 className="card-icon-text mt-4">
+                Let's have a coffee together
+              </h6>
+              <a
+                href="https://maps.google.com/maps?ll=28.545099,77.333688&amp;z=16&amp;t=m&amp;hl=en&amp;gl=IN&amp;mapclient=embed&amp;daddr=ODOads%2082%2C%20E-Block%20Rd%20Sector%206%20Noida%2C%20Uttar%20Pradesh%20201301@28.5450993,77.3336882"
+                className="
 "
-                  >
-                    82, E-Block Rd, Sector 6, Noida
-                  </a>
-                </div>
-              </div>
+              >
+                82, E-Block Rd, Sector 6, Noida
+              </a>
             </div>
           </div>
         </div>
-        <style jsx>
-          {`
-            @media screen and (max-width: 500px) {
-              .mbil-navv {
-                padding: 0px 12px;
-              }
-            }
-            .lead-1 {
-              font-size: 2.4rem;
-              margin-bottom: 0.5rem;
-              line-height: 1.5;
-              color: #ffffff !important;
-              letter-spacing: 0.5px;
+      </section>
 
-              font-family: Dosis, sans-serif !important;
-            }
-            .textt {
-              font-size: 1.1rem;
-              line-height: 1.9;
-              color: rgba(255, 255, 255, 0.85) !important;
-              letter-spacing: 0.5px;
-            }
-            .lead-2 {
-              font-size: 0.98rem;
-              color: #ababb0;
-              font-weight: 300;
-            }
-            .small-1 {
-              font-size: 0.75rem;
-              color: #ababb0;
-              font-weight: 300;
-            }
-          `}
-        </style>
-      </div>
-      <section className="mb-3 p-3 p-md-0">
+      <section className="mb-3 mb-md-5 p-3 p-md-0">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.820852041051!2d77.33111327437544!3d28.545103988047586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce569d4819d5d%3A0x8d4cc33e17dc1524!2sODOads!5e0!3m2!1sen!2sin!4v1686740895879!5m2!1sen!2sin"
           style={{ width: "100%", height: "360px" }}
@@ -182,6 +136,29 @@ const Contact = () => {
         <ContactForm />
       </section>
       <Footer />
+      <style jsx>
+        {`
+          .img-2 {
+            height: 40px;
+            width: auto;
+          }
+          .card-icon-text {
+            font-size: small;
+            color: #818283;
+          }
+
+          .border-box {
+            border-right: 2px solid #7c7878;
+            border-left: 2px solid #7c7878;
+          }
+          @media screen and (max-width: 720px) {
+            .border-box {
+              margin: 20px 0px;
+              border: none;
+            }
+          }
+        `}
+      </style>
     </>
   );
 };
