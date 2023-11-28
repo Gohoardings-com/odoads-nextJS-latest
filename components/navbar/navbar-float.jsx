@@ -59,7 +59,7 @@ const Floatingnavbar = () => {
             width: 100vw;
             transition: opacity 0.6s, transform 0.6s;
           }
-          @media screen and (max-width: 500px) {
+          @media screen and (max-width: 720px) {
             .new-search {
               padding: 0.2vw 4vw;
             }

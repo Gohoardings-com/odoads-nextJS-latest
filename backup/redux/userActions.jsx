@@ -8,3 +8,10 @@ export const setUserPermission = (permissions) => ({
   payload: permissions,
 }); 
 
+export const showOffcanvas = () => ({
+  type: 'SHOW_OFFCANVAS',
+});
+
+export const hideOffcanvas = () => ({
+  type: 'HIDE_OFFCANVAS',
+});

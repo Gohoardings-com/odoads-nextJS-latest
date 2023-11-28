@@ -33,7 +33,7 @@ const Index = () => {
     setSelectRow(null);
   };
   const handleShowe = () => setShowe(true);
-
+ 
   const getData = async () => {
     const allData = await getCustomerApi();
     setPosts(allData);

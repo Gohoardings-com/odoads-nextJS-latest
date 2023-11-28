@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import { useRouter } from "next/router";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { showOffcanvas } from '../../../redux/userActions'; 
+import { AccountContext } from "../..";
 
 function useWindowScroll() {
   const [scrollPosition, setScrollPosition] = useState([
@@ -26,6 +29,11 @@ const Navbar = () => {
   const router = useRouter();
   const [scroll] = useWindowScroll();
   const [isVisible, setIsVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleMenuClick = () => {
+    dispatch(showOffcanvas());
+  };
 
   useEffect(() => {
     const handleCss = () => {
@@ -169,9 +177,7 @@ const Navbar = () => {
           <section className="nav-container  ">
             <span
               className="p-2 ps-0 me-3"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasScrolling"
-              aria-controls="offcanvasScrolling"
+             onClick={handleMenuClick}
             >
               <AiOutlineMenu
                 style={
@@ -216,82 +222,11 @@ const Navbar = () => {
             )}
           </form>
         </div>
-        <div
-          className="offcanvas offcanvas-start"
-          data-bs-scroll="true"
-          data-bs-backdrop="false"
-          tabIndex="-1"
-          id="offcanvasScrolling"
-          aria-labelledby="offcanvasScrollingLabel"
-        >
-          <div className="offcanvas-header pb-0">
-            <p className="nav-logo ms-3 mb-0">
-              <img
-                src="../../imgs/black_logo-light.png"
-                onClick={() => router.push("/")}
-                style={{ cursor: "pointer" }}
-                className=""
-              />
-            </p>
-            <button
-              type="button"
-              className="btn-close "
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="offcanvas-body ">
-            <ul className="list-group list-group-flush">
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/about")}
-              >
-                About
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/features")}
-              >
-                Features
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/pricing")}
-              >
-                Pricing
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/contact")}
-              >
-                Contact
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/privacy-policy")}
-              >
-                Privacy policy
-              </li>
-            </ul>
-          </div>
-        </div>
+      
       </nav>
       <style jsx>
         {`
-          .list-group-item {
-            min-height: inherit;
-            line-height: inherit;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            font-size: 0.95rem;
-            text-transform: none;
-            color: rgba(117, 117, 117, 0.8);
-          }
+        
           .lg-btn {
             padding: 5px 11px;
             font-size: 10px;

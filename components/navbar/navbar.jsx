@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext} from "react";
 import { useRouter } from "next/router";
 import { AiOutlineMenu } from "react-icons/ai";
+import { AccountContext } from "../../apis/contextApi";
 
 function useWindowScroll() {
   const [scrollPosition, setScrollPosition] = useState([
@@ -26,6 +27,10 @@ const Navbar = () => {
   const router = useRouter();
   const [scroll] = useWindowScroll();
   const [isVisible, setIsVisible] = useState(false);
+
+  const { handleShow } = useContext(AccountContext);
+
+
 
   useEffect(() => {
     const handleCss = () => {
@@ -134,18 +139,14 @@ const Navbar = () => {
       <nav className="navbar ps-0 mbil-nav">
         <div className="nav-container w-100">
           <section className="nav-container  ">
-            <span
-              class="p-2 ps-0 me-3"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasExample"
-              aria-controls="offcanvasExample"
-            >
+            <span class="p-2 ps-0 me-3 " >
               <AiOutlineMenu
                 style={
                   isVisible
                     ? { color: "#757575", fontSize: "1.35rem" }
                     : { color: "black", fontSize: "1.35rem", opacity: ".7" }
                 }
+                onClick={()=>handleShow()}
               />
             </span>
             <p className="nav-logo m-0 ">
@@ -179,81 +180,9 @@ const Navbar = () => {
             )}
           </form>
         </div>
-
-        <div
-          class="offcanvas offcanvas-start"
-          tabindex="-1"
-          id="offcanvasExample"
-          aria-labelledby="offcanvasExampleLabel"
-        >
-          <div className="offcanvas-header pb-0">
-            <p className="nav-logo ms-3 mb-0">
-              <img
-                src="../../imgs/black_logo-light.png"
-                onClick={() => router.push("/")}
-                style={{ cursor: "pointer" }}
-                className=""
-              />
-            </p>
-            <button
-              type="button"
-              className="btn-close "
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="offcanvas-body ">
-            <ul className="list-group list-group-flush">
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/about")}
-              >
-                About
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/features")}
-              >
-                Features
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/pricing")}
-              >
-                Pricing
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/contact")}
-              >
-                Contact
-              </li>
-              <li
-                className="list-group-item"
-                data-bs-dismiss="offcanvas"
-                onClick={() => router.push("/privacy-policy")}
-              >
-                Privacy policy
-              </li>
-            </ul>
-          </div>
-        </div>
       </nav>
       <style jsx>
         {`
-          .list-group-item {
-            min-height: inherit;
-            line-height: inherit;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            font-size: 0.95rem;
-            text-transform: none;
-            color: rgba(117, 117, 117, 0.8);
-          }
           .lg-btn {
             padding: 5px 11px;
             font-size: 10px;
@@ -299,7 +228,7 @@ const Navbar = () => {
             word-spacing: 2px;
             padding-left: 1.125rem;
             padding-right: 1.125rem;
-        
+
             font-family: sans-serif;
             padding-bottom: 0;
           }
@@ -345,8 +274,8 @@ const Navbar = () => {
 
           .btn-success {
             color: #fff;
-            background-color: #5EDF2D;
-            border-color: #5EDF2D;
+            background-color: #5edf2d;
+            border-color: #5edf2d;
           }
 
           .search-btn:hover {
