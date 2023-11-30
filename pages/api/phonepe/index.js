@@ -32,6 +32,7 @@ export default async function handler(req, res) {
   }
 }
 
+
 export const getUser = catchError(async (req, res, next) => {
   const { code } = req.id;
 
@@ -49,38 +50,55 @@ export const getUser = catchError(async (req, res, next) => {
 });
 
 export const refundPay = catchError(async (req, res, next) => {
-  const { id } = req.body;
-  const { code } = req.id;
-
-  const data = await executeQuery(`SELECT payment_id, paid FROM pg_leads WHERE id = ${id}`, `pg_${code}`)
-
-  const amount = data[0].paid;
-  const paymentId = data[0].payment_id;
-
-if (req.method === "PATCH") {
-
-  const razorpay = new Razorpay({
-    key_id: 'rzp_test_cSCGi16XKuPDax',
-    key_secret: 'wFbC2wFabuhGcUj5m8Stlrs5',
-  });
-
-  const options = {
-    amount: (amount / 2 * 100).toString(),
-    speed : 'optimum'
-  };
 
   try {
-    const response = await razorpay.payments.refund(paymentId,options)
-    const result = await executeQuery(`UPDATE pg_leads SET refund = 1, refund_id = '${response.id}'`,`pg_${code}`);
-    if (result) {
-      return res.json(response);
-    }
-  } catch (err) {
-   
-    res.status(400).json(err);
-  }
-} else {
-  return res.status(206).json({ message : "error"})
+    const refund = uniqid('R');
+    const data = {
+        merchantId: 'M16GKDDZZQAI',
+        merchantUserId: "MUID1433423",
+        originalTransactionId : "T2311241736312206937902",
+        merchantTransactionId: "T3v94r6lpcktt9j",
+        amount: 1 * 100,
+        callbackUrl: `http://localhost:3000/api/phonepe/${refund}`,
+    };
+    
+    const payload = JSON.stringify(data);
+    const payloadMain = Buffer.from(payload).toString('base64');
+    const keyIndex = 1;
+    const salt_key = '2096f083-a33e-4b4f-a418-8733b13060aa'
+    const string = payloadMain + '/pg/v1/refund' + salt_key;
+    const sha256 = crypto.createHash('sha256').update(string).digest('hex');
+    
+    const checksum = sha256 + '###' + keyIndex;
+    
+    const prod_URL = "https://api.phonepe.com/apis/hermes/pg/v1/refund"
+    const options = {
+        method: 'POST',
+        url: prod_URL,
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-VERIFY': checksum
+        },
+        data: {
+            request: payloadMain
+        }
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response);
+      // await executeQuery(`UPDATE pg_leads SET refund = 1, refund_id = '${response.id}'`,`pg_${code}`);
+      // res.json({ success: true, redirectUrl: response.data.data.instrumentResponse.redirectInfo.url });
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+
+} catch (error) {
+    res.status(500).send({
+        message: error.message,
+        success: false
+    })
 }
 
 });

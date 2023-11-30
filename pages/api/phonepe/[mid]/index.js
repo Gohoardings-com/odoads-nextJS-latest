@@ -13,10 +13,20 @@ export default async function handler(req, res) {
 	await outverifyToken(req,res);
       verifyPay(req, res);
       break;
+    case "POST":
+      verifyRefund(req, res);
+      break;
     default:
       return res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
+
+
+export const verifyRefund = catchError(async (req, res, next) => {
+  console.log(req.body);
+  return "success"
+})
+
 
 export const verifyPay = catchError(async (req, res, next) => {
   const {code} = req.id;
@@ -68,7 +78,7 @@ export const verifyPay = catchError(async (req, res, next) => {
         break;
         break;
     	}
-  const tid = response.data.data.transactionId;
+        const tid = response.data.data.transactionId;
         const payment = "UPDATE tblcompanies SET Plan = '" + plan + "', Plan_type = '" + plan_type + "', paid = 1, mtid = '" + mid + "',tid = '" + tid + "', db_created = 'yes' WHERE code = '" + code + "'";
           await executeQuery(payment, `odoads_tblcompanies`)
           const test = await createVendor(code);
