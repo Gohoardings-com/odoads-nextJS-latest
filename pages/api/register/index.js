@@ -80,35 +80,14 @@ export const registerComapny = catchError(async (req, res) => {
     resolve(resolve)    
     if (already.length == 0) {
       const newpassword = bcryptjs.hashSync(String(contact_password), 8);                                                                                                                                         
-
-            const sql = await executeQuery("UPDATE tblcompanies SET name = '" + company_name +"', code = '" + code + "', contact_email = '" +          contact_email +          "', contact_firstname = '" +          newName +          "', contact_password = '" +          newpassword +          "',contact_gstin = '" +          gstin +          "',  status = 1, created = CURRENT_TIMESTAMP, register = true, add_by = 'self' WHERE contact_phone = '" +          contact_phone +          "'",        "odoads_tblcompanies"      );      
-            resolve(sql)      
-            if (sql) {        
-              const createDtabase = await executeQuery(`CREATE DATABASE odoads_${code}`);        
-              if (createDtabase) {          
-                const data = await executeQuery("SHOW TABLES", "odoads_app");          
-                resolve(data)          
-                if (data) {            
-                  data.forEach(async (table) => {              
-                    const createTableQuery = `CREATE TABLE IF NOT EXISTS odoads_${code}.${table.Tables_in_odoads_app} LIKE odoads_app.${table.Tables_in_odoads_app}`;              
-                    const insertDataQuery = `INSERT INTO odoads_${code}.${table.Tables_in_odoads_app} SELECT * FROM odoads_app.${table.Tables_in_odoads_app}`;              
-                    const value = await executeQuery(createTableQuery, `odoads_${code}`);             
-                     resolve(value)             
-                      if (value) {                
-                        await executeQuery(insertDataQuery, `odoads_${code}`);             
-                       }            
-                      });         
-                      return res.status(200).json({message : "Register Success"})          
-                    }        
-                  } else {
-                    return res.status(206).json({ message: "DataBase not Created" });        
-                  }       
-                } else { 
-                  return res.status(206).json({ message: "No User Found" });      
-                }      
-              }else{      
-                return res.status(206).json({ message: "Company Already Registered" });     
-              }
+          const sql = await executeQuery("UPDATE tblcompanies SET name = '" + company_name +"', code = '" + code + "', contact_email = '" + contact_email + "', contact_firstname = '" + newName + "', contact_password = '" + newpassword + "',contact_gstin = '" + gstin + "',  status = 1, created = CURRENT_TIMESTAMP, register = true, db_created = 'no',paid = 0, add_by = 'self' WHERE contact_phone = '" + contact_phone + "'","odoads_tblcompanies");      
+          resolve(sql)  
+          if (sql) {
+            return res.status(200).json({message : "Register Success"})
+          }         
+        }else{      
+          return res.status(206).json({ message: "Company Already Registered" });     
+        }
     }))
 });
 export const addUser = catchError(async (req, res) => {

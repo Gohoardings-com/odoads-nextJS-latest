@@ -117,14 +117,13 @@ const RegistrationForm = () => {
      const value = await registerComapnyApi(ragisterData);
 
      if(value.message  ===  "Register Success"){
-      const createUser = await firstUser();
       if(createUser.success == true) {
         localStorage.setItem("user", "logged");
          // Set the expiration time to 7 days from now
          const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
          localStorage.setItem("expirationTime", expirationTime.toString());
          
-        route.push("/admin")
+        route.push("/pricing")
       }
      }
      else(

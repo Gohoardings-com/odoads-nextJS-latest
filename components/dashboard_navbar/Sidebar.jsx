@@ -24,6 +24,7 @@ import {
 } from "react-icons/bs";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { ImHome3 } from "react-icons/im";
+
 import { allPermissionapi, getUserApi, logoutApi } from "../../apis/apis";
 
 const routes = [
@@ -201,6 +202,7 @@ const SideBar = () => {
     const post = await logoutApi(user);
     if (post.success == true) {
       //clr local storage
+      document.cookie = 'odoads_goh=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       localStorage.removeItem("user");
       localStorage.removeItem("expirationTime");
 

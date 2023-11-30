@@ -2,7 +2,7 @@ import { executeQuery } from "../../../conn/conn";
 import catchError from "../../../middelware/catchError";
 import cookie from "cookie";
 import bcrypt from "bcryptjs";
-import { token, verifyToken } from "../../../middelware/token";
+import { token,outtoken, verifyToken } from "../../../middelware/token";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -33,30 +33,33 @@ export const loginEmail = catchError(async (req, res) => {
     "SELECT code, Plan, Plan_type, paid FROM tblcompanies WHERE name = '" + company + "' ",
     "odoads_tblcompanies"
   );
-
   if (data.length == 1) {
     if (data[0].paid == 0) {
+      const id = `2&${data[0].code}`;
+      outtoken(id, 200, res);
       return res.status(206).json({ success: false, message: "Select Plan" });
-    }
-    const userid = data[0].code;
-    const stafflogin = await executeQuery(
-      "SELECT password, staffid From tblstaff WHERE email = '" + email + "'",
-      `odoads_${userid}`
-    );
-    if (stafflogin.length == 1) {
-      const datapas = stafflogin[0].password;
-      const matchPassword = bcrypt.compareSync(password, datapas);
-      if (matchPassword) {
-        const id = `${stafflogin[0].staffid}&${userid}`;
-        token(id, 200, res);
-      } else {
-        return res.status(206).json({ message: "Password Not matched" });
-      }
     } else {
-      return res
-        .status(206)
-        .json({ success: false, message: "Email Not Found" });
+      const userid = data[0].code;
+      const stafflogin = await executeQuery(
+        "SELECT password, staffid From tblstaff WHERE email = '" + email + "'",
+        `odoads_${userid}`
+      );
+      if (stafflogin.length == 1) {
+        const datapas = stafflogin[0].password;
+        const matchPassword = bcrypt.compareSync(password, datapas);
+        if (matchPassword) {
+          const id = `${stafflogin[0].staffid}&${userid}`;
+          token(id, 200, res);
+        } else {
+          return res.status(206).json({ message: "Password Not matched" });
+        }
+      } else {
+        return res
+          .status(206)
+          .json({ success: false, message: "Email Not Found" });
+      }
     }
+    
   } else {
     return res
       .status(206)
@@ -109,7 +112,7 @@ export const changePassword = catchError(async (req, res) => {
           .json({ success: false, message: "Password Error" });
       } else {
         const sql = await executeQuery(
-          "SELECT code from  tblcompanies WHERE  name='" + company + "'",
+          "SELECT code,paid from  tblcompanies WHERE  name='" + company + "'",
           "odoads_tblcompanies"
         );
         if (sql) {
@@ -130,11 +133,11 @@ export const changePassword = catchError(async (req, res) => {
               `odoads_${Companycode}`
             );
             const logindata = `${staffid[0].staffid}&${Companycode}`;
-            res.setHeader(
-              "Set-Cookie",
-              cookie.serialize(String(`odoads_goh`), { expires: Date.now() })
-            );
-            token(logindata, 200, res);
+            if (sql[0].paid == 1) {
+              token(logindata, 200, res);
+            } else {
+              outtoken(logindata, 200, res)
+            }
           }
         }
       }
@@ -151,7 +154,7 @@ export const changePassword = catchError(async (req, res) => {
 export const logOut = catchError(async (req, res, next) => {
   const { code, userid } = req.id;
   const { id } = req.body;
-
+  
   if (userid == id) {
     const updateDatabse = await executeQuery(
       "Update tblstaff SET last_activity = CURRENT_TIMESTAMP, last_login = CURRENT_TIMESTAMP WHERE staffid = " +

@@ -1,6 +1,6 @@
 const { executeQuery } = require("../../../conn/conn");
 const catchError = require("../../../middelware/catchError");
-const { verifyToken } = require("../../../middelware/token");
+const { verifyToken, outverifyToken,token } = require("../../../middelware/token");
 const path = require('path');
 const fs = require('fs');
 const XLSX = require('xlsx');
@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
             await excel(req, res);
             break;
         case 'PUT':
-            await verifyToken(req, res);
+            await outverifyToken(req, res);
             updatePlan(req,res)
             break;
         default:
@@ -50,13 +50,70 @@ export const updatePlan = catchError(async (req, res) => {
           break;
       }
 
-      const sql = `UPDATE tblcompanies SET paid = 1, Plan = '${plan}' , Plan_type = '${type}' WHERE code = '${code}'`;
-      console.log(sql);
+      const sql = `UPDATE tblcompanies SET paid = 1, Plan = '${plan}' , Plan_type = '${type}', db_created = 'yes' WHERE code = '${code}'`;
+      const test = await createVendor(code);
+      if (test) {
+        await addUser(code,res);
+      }
       await executeQuery(sql,"odoads_tblcompanies");
       
-      return res.status(206).json({ success: true, message: "success" });
+      // return res.status(206).json({ success: true, message: "success" });
 
 })
+
+
+async function createVendor (code) {
+  const createDtabase = await executeQuery(`CREATE DATABASE odoads_${code}`);        
+  if (createDtabase) {
+    const sourceFolderPath = path.resolve('./public/media/app');
+    const destinationFolderPath = path.resolve('./public/media');
+    const folder = await copyFolderWithCustomName(sourceFolderPath, destinationFolderPath, code);  
+    if (folder) {
+        console.log(folder);
+    }        
+    const data = await executeQuery("SHOW TABLES", "odoads_app");                 
+    if (data) {            
+      data.forEach(async (table) => {              
+        const createTableQuery = `CREATE TABLE IF NOT EXISTS odoads_${code}.${table.Tables_in_odoads_app} LIKE odoads_app.${table.Tables_in_odoads_app}`;              
+        const insertDataQuery = `INSERT INTO odoads_${code}.${table.Tables_in_odoads_app} SELECT * FROM odoads_app.${table.Tables_in_odoads_app}`;              
+        const value = await executeQuery(createTableQuery, `odoads_${code}`);                       
+          if (value) {                
+            await executeQuery(insertDataQuery, `odoads_${code}`);            
+           }            
+          });         
+          return true;        
+        }        
+      } else {
+        return false;        
+      } 
+    };
+
+async function copyFolderWithCustomName(sourceFolder, destinationFolder, name, isRoot = true) {
+  const newFolderName = isRoot ? name : path.basename(sourceFolder);
+  const newFolderPath = path.join(destinationFolder, newFolderName);
+
+  try {
+    if (!fs.existsSync(newFolderPath)) {
+      fs.mkdirSync(newFolderPath, { recursive: true });
+    }
+
+    const filesAndSubfolders = fs.readdirSync(sourceFolder);
+
+    for (const item of filesAndSubfolders) {
+      const sourcePath = path.join(sourceFolder, item);
+      const destinationPath = path.join(newFolderPath, item);
+
+      if (fs.statSync(sourcePath).isFile()) {
+        fs.copyFileSync(sourcePath, destinationPath);
+      } else if (fs.statSync(sourcePath).isDirectory()) {
+        copyFolderWithCustomName(sourcePath, newFolderPath, name, false);
+      }
+    }
+    return newFolderName;
+  } catch (err) {
+    console.error('Error copying folder:', err);
+  }
+}
 
 export const excel = catchError(async (req, res) => {
     const { ID, data } = req.body;
@@ -100,4 +157,18 @@ const convertJsonToExcel = async (data, ID) => {
   await XLSX.writeFile(workBook, filePath);
 
   return filePath;
+}
+
+
+async function addUser(code,res){
+  const userData = await executeQuery("SELECT code,contact_email, name, contact_password, contact_phone FROM tblcompanies WHERE id = (SELECT Max(id) FROM tblcompanies)", "odoads_tblcompanies")
+  if (userData) {
+    const code = userData[0].code
+    const img_url = "https://odoads.com/imgs/man.png";
+    await executeQuery("INSERT into tblstaff SET staffid=2, email = '" + userData[0].contact_email + "', firstname = '" + userData[0].name + "', phonenumber = " + userData[0].contact_phone + ", password ='" + userData[0].contact_password + "', role=3 , profile_image = '"+img_url+"', datecreated = CURRENT_TIMESTAMP", `odoads_${code}`)
+    const id = `2&${code}`
+    token(id, 200, res);
+  } else {
+    return false;
+  }
 }

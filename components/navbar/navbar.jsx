@@ -1,8 +1,8 @@
-import React, { useState, useEffect,useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AccountContext } from "../../apis/contextApi";
-
+import Cookies from 'js-cookie';
 function useWindowScroll() {
   const [scrollPosition, setScrollPosition] = useState([
     typeof window !== "undefined" && window.pageYOffset,
@@ -24,13 +24,12 @@ function useWindowScroll() {
 
 const Navbar = () => {
   const [loged, setLogged] = useState();
+  const [paid, setPaid] = useState();
   const router = useRouter();
   const [scroll] = useWindowScroll();
   const [isVisible, setIsVisible] = useState(false);
 
   const { handleShow } = useContext(AccountContext);
-
-
 
   useEffect(() => {
     const handleCss = () => {
@@ -46,6 +45,9 @@ const Navbar = () => {
     //check user logged in or not
     const userIsAuthenticated =
       typeof window !== "undefined" && localStorage.getItem("user") !== null;
+    const userpaid =
+      typeof window !== "undefined" && Cookies.get("odoads_goh") !== undefined;
+    setPaid(userpaid);
     setLogged(userIsAuthenticated);
   }, []);
   return (
@@ -116,7 +118,7 @@ const Navbar = () => {
               <button
                 className="search-btn  btn-success me-0 lg-btn"
                 type="button"
-                onClick={() => router.push("/admin")}
+                onClick={() => router.push(paid ? "/admin" : "/pricing")}
               >
                 My Dashboard
               </button>
@@ -139,14 +141,14 @@ const Navbar = () => {
       <nav className="navbar ps-0 mbil-nav">
         <div className="nav-container w-100">
           <section className="nav-container  ">
-            <span class="p-2 ps-0 me-3 " >
+            <span class="p-2 ps-0 me-3 ">
               <AiOutlineMenu
                 style={
                   isVisible
                     ? { color: "#757575", fontSize: "1.35rem" }
                     : { color: "black", fontSize: "1.35rem", opacity: ".7" }
                 }
-                onClick={()=>handleShow()}
+                onClick={() => handleShow()}
               />
             </span>
             <p className="nav-logo m-0 ">
@@ -163,7 +165,7 @@ const Navbar = () => {
               <button
                 className="search-btn  btn-success me-0"
                 type="button"
-                onClick={() => router.push("/admin")}
+                onClick={() => router.push(paid ? "/admin" : "/pricing")}
               >
                 My Dashboard
               </button>

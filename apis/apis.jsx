@@ -19,6 +19,12 @@ let permission = "permissions";
 let leadStatus = "leadStatus";
 let phonepe = "phonepe";
 let excel = "excel";
+let createvendor = "createvendor";
+
+export const vendorcreate = async () => {
+  const { data } = await instance.post(createvendor);
+  return data;
+};
 
 export const updatePlan = async (amount) => {
   const { data } = await instance.put(excel,{amount});

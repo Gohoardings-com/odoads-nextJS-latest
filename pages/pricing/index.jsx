@@ -5,10 +5,11 @@ import Header from "../../components/static-header";
 import Footer from "@/components/footer";
 import Floatingnavbar from "@/components/navbar/navbar-float";
 import {payment, verifyPay, updatePlan } from "@/apis/apis";
-
+import Cookies from 'js-cookie';
 const Pricing = () => {
   const router = useRouter();
   const { asPath } = useRouter();
+  const [paid, setPaid] = useState();
   const [state, setState] = useState(true);
   const [nstate, setNstate] = useState(false);
 
@@ -29,11 +30,19 @@ useEffect(() => {
 }, []);
 
   const handlePlan = async (plan) => {
+  if(paid){
+    alert("You have already purchased our plan");
+    return;
+  }
+
     let amount;
     switch (plan) {
       case "free":
         const data =  await updatePlan(0);
-        if (data.message == "success") {
+        if (data.message == "Login Successfully") {
+          localStorage.setItem("user", "logged");
+          const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
+          localStorage.setItem("expirationTime", expirationTime.toString());
           router.push("/admin")
         }
         break;
@@ -65,6 +74,17 @@ if (data.success) {
       console.error('Error:', data.message);
     }
   };
+
+
+  console.log(process.env.URL);
+
+  useEffect(() => {
+  
+    const userpaid =
+      typeof window !== "undefined" && Cookies.get("odoads_goh") !== undefined;
+    setPaid(userpaid);
+  
+  }, []);
 
   return (
     <>
@@ -210,7 +230,7 @@ if (data.success) {
                 </div>
                 <br />
                 <p className="text-center py-3">
-                  <a className="btn btn-outline-primary" onClick={(() => handlePlan("free"))}>
+                  <a className="btn btn-outline-primary" onClick={(() => handlePlan("free"))} >
                     Get started
                   </a>
                 </p>
