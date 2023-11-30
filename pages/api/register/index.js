@@ -79,7 +79,7 @@ export const registerComapny = catchError(async (req, res) => {
     const already = await executeQuery("SELECT id FROM tblcompanies WHERE code = '" + code + "' || contact_email = '" + contact_email + "'", "odoads_tblcompanies")    
     resolve(resolve)    
     if (already.length == 0) {
-      const newpassword = bcryptjs.hashSync(String(contact_password), 8); //, , 1, CURRENT_TIMESTAMP, true, self                                                                                                                                            
+      const newpassword = bcryptjs.hashSync(String(contact_password), 8);                                                                                                                                         
 
             const sql = await executeQuery("UPDATE tblcompanies SET name = '" + company_name +"', code = '" + code + "', contact_email = '" +          contact_email +          "', contact_firstname = '" +          newName +          "', contact_password = '" +          newpassword +          "',contact_gstin = '" +          gstin +          "',  status = 1, created = CURRENT_TIMESTAMP, register = true, add_by = 'self' WHERE contact_phone = '" +          contact_phone +          "'",        "odoads_tblcompanies"      );      
             resolve(sql)      
