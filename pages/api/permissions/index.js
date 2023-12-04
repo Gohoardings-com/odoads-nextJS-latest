@@ -10,17 +10,9 @@ export default async function handler(req, res) {
       await verifyToken(req, res);
       await updateInvoiceItem(req, res);
       break;
-    case "PUT":
-      await verifyToken(req, res);
-      await updateSatff(req, res);
-      break;
     case "GET":
       await verifyToken(req, res);
       await getPermissions(req, res);
-      break;
-    case "POST":
-      await verifyToken(req, res);
-      await addStaff(req, res);
       break;
   }
 }

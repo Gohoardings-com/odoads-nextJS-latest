@@ -73,7 +73,7 @@ export const addStaff = catchError(async (req, res) => {
     skype +
     "', password = '" +
     newPassword +
-    "', datecreated = CURRENT_TIMESTAMP,  role = " + role_name + "",
+    "', datecreated = CURRENT_TIMESTAMP, active = 1,  role = " + role_name + "",
     `odoads_${code}`
   );
   if (addStaff) {
