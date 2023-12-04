@@ -15,6 +15,7 @@ const Edit_staff = ({ show, handleClose, selectRow, allData }) => {
   const [profile, setProfile] = useState(true);
   const [defaultValueFile, setdefaultValueFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  
 
   //store img upload
   const handleFileChange = (event) => {
@@ -26,7 +27,6 @@ const Edit_staff = ({ show, handleClose, selectRow, allData }) => {
   const change = async () => {
     const id = data.staffid;
     const roleName = data.role;
-
     const datas = await allPermissionapi(id, roleName);
     setpermission(datas);
     setProfile(!profile);
@@ -55,15 +55,19 @@ const Edit_staff = ({ show, handleClose, selectRow, allData }) => {
   //edit staff api
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (data.password && data.password.length < 8) {
+      alert("Password should be at least 8 characters");
+      return;
+    }
+
     if (
       data.firstname !== "" &&
       data.email !== "" &&
-      data.password.length >= 8 &&
       data.role !== "" &&
       data.phonenumber.length == 10
     ) {
       const values = await editStaffApi(data, permission);
-      if (values.message == "Satff Member added Successfully") {
+      if (values.message === "Staff Member updated successfully") {
         const formData = new FormData();
         formData.append("file", defaultValueFile);
         formData.append("name", "staff");
@@ -163,7 +167,7 @@ const Edit_staff = ({ show, handleClose, selectRow, allData }) => {
                           name="password"
                           className="form-control "
                           value={data.password}
-                          placeholder="********"
+                          placeholder="Change password"
                           onChange={handleChange}
                         />
                       </div>
