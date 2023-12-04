@@ -3,33 +3,42 @@ import React, { useState, useEffect } from "react";
 import { MdCall } from "react-icons/md";
 import { BsWhatsapp } from "react-icons/bs";
 import { useSelector } from "react-redux";
-
+import Cookies from 'js-cookie';
 const Dashboard2 = () => {
   const [posts, setPosts] = useState([]);
   const [allCamp, setAllCamp] = useState([]);
   const [campPermission, setCampPermission] = useState();
   const [staffPermission, setStaffPermission] = useState();
 
+    //all campaign api
+    const userIsAuthenticated =
+    typeof window !== "undefined" && Cookies.get("odoads_goh") !== undefined;
+
+    
   //all staff api
   const allData = async () => {
+   
     const data = await getAllStaffApi();
     setPosts(data);
   };
 
-  //all campaign api
+
   const getData = async () => {
-    const allData = await getAllCampaignApi();
+   
+      const allData = await getAllCampaignApi();
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to midnight (00:00:00)
-
-    const filteData = allData.filter((data) => {
-      const dataDate = new Date(data.date_finished);
-      dataDate.setHours(0, 0, 0, 0); // Reset time to midnight (00:00:00)
-      return dataDate >= today;
-    });
-
-    setAllCamp(filteData);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Reset time to midnight (00:00:00)
+  
+      const filteData = allData.filter((data) => {
+        const dataDate = new Date(data.date_finished);
+        dataDate.setHours(0, 0, 0, 0); // Reset time to midnight (00:00:00)
+        return dataDate >= today;
+      });
+  
+      setAllCamp(filteData);
+    
+    
   };
 
   // Function to generate WhatsApp URL
@@ -52,9 +61,12 @@ const Dashboard2 = () => {
   const permissions = useSelector((state) => state.user.userPermissions);
 
   useEffect(() => {
-    getData();
-    allData();
-  }, []);
+    if(userIsAuthenticated){
+      getData();
+      allData();
+    }
+ 
+  }, [userIsAuthenticated]);
 
   useEffect(() => {
     if (permissions.length >= 1) {

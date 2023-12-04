@@ -103,9 +103,10 @@ const convertJsonToPPT = async (data, ID) => {
     var filePath = path.join(`./docs/GOH${ID}.pptx`);
     
     try {
-        await pres.writeFile(filePath);
+        const resp = await pres.writeFile(filePath);
         return filePath;
     } catch (error) {
+        console.log(error);
         throw new Error('Error in creating PPT');
     }
 }

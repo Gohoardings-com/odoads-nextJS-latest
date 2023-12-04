@@ -13,7 +13,7 @@ import { SlCalender } from "react-icons/sl";
 import { MdPermMedia, MdOutlineCampaign } from "react-icons/md";
 import { TbFileInvoice } from "react-icons/tb";
 import { useDispatch } from "react-redux";
-import {setUsers, setUserPermission } from "../../redux/userActions";
+import { setUsers, setUserPermission } from "../../redux/userActions";
 import styles from "../../styles/sidebar.module.scss";
 import { useRouter } from "next/router";
 import {
@@ -24,7 +24,7 @@ import {
 } from "react-icons/bs";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { ImHome3 } from "react-icons/im";
-
+import Cookies from "js-cookie";
 import { allPermissionapi, getUserApi, logoutApi } from "../../apis/apis";
 
 const routes = [
@@ -160,8 +160,9 @@ const SideBar = () => {
 
   //get user api
   const userIsAuthenticated =
-    typeof window !== "undefined" && localStorage.getItem("user") !== null;
-    const userAdmin = async () => {
+    typeof window !== "undefined" && Cookies.get("odoads_goh") !== undefined;
+
+  const userAdmin = async () => {
     if (userIsAuthenticated) {
       const data = await getUserApi();
       const main = data[0];
@@ -169,7 +170,7 @@ const SideBar = () => {
       setUser(data[0].id);
       setUserRole(data[0].name);
     }
-  };  
+  };
 
   //get user permission
   const change = async () => {
@@ -202,7 +203,8 @@ const SideBar = () => {
     const post = await logoutApi(user);
     if (post.success == true) {
       //clr local storage
-      document.cookie = 'odoads_goh=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie =
+        "odoads_goh=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       localStorage.removeItem("user");
       localStorage.removeItem("expirationTime");
 

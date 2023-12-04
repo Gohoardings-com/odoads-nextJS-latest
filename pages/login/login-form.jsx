@@ -3,9 +3,13 @@ import { loginApi } from "../../apis/apis";
 import { useRouter } from "next/router";
 import ForgetForm from "./forget-form";
 
-const LoginForm = () => {
+const LoginForm = ({setForgeted}) => {
   const router = useRouter();
   const [forget, setForget] = useState(false);
+  if(setForgeted ){
+
+    setForgeted(forget);
+  }
   const [formSubmit, setFormSubmit] = useState(false);
   const forgetPassword = () => setForget(true);
 
@@ -25,7 +29,7 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (window !== "undefined" && window.innerWidth < 550) {
-      alert("Select dekstop view first on your browser")
+      alert("Select dekstop view first on your browser");
       return; // Exit the function without further processing
     }
 
@@ -43,15 +47,15 @@ const LoginForm = () => {
         localStorage.setItem("expirationTime", expirationTime.toString());
 
         router.push("/admin");
-      } else if(value.message == "Select Plan") {
+      } else if (value.message == "Select Plan") {
         localStorage.setItem("user", "logged");
 
         // Set the expiration time to 7 days from now
         const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
         localStorage.setItem("expirationTime", expirationTime.toString());
-        
+
         router.push("/pricing");
-      }else if (value.message !== "") {
+      } else if (value.message !== "") {
         alert(value.message);
       }
     } else {
@@ -68,8 +72,12 @@ const LoginForm = () => {
       ) : (
         <>
           <div className="authentication-form">
-            <h1 className="text-center">Login</h1>
-
+            <h3 className="">Login</h3>
+            <p className="">
+              Welcome back! Log in to your OdoAds Cloud account <br/>to access your
+              media inventory, manage customers, track<br/> campaigns, and more.
+              We're thrilled to have you back on board.
+            </p>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="company" className="control-label my-1">
@@ -164,51 +172,17 @@ const LoginForm = () => {
 
       <style jsx>
         {`
-          a {
-            border-bottom: 1px solid transparent;
-          }
-          a:hover {
-            border-bottom: 1px solid white;
-          }
-          .authentication-form {
-            background: #1a2038;
-            opacity: 0.9;
-            border: none;
-            width: 30vw;
-            height: fit-content;
-            border-radius: 2px;
-          }
-          .authentication-form h1 {
-            margin: 0 0 25px 0;
-            padding: 10px 0;
-            color: #ffb433;
-            border-bottom: dashed 1px rgba(255, 180, 109, 0.9);
-            text-transform: none;
+          .authentication-form h3 {
+            margin: 5px 0 10px 0;
+
+            color: #393939;
           }
           .form-control {
-            display: block;
-            width: 100%;
-            height: 34px;
-            padding: 6px 12px;
-            font-size: 14px;
             line-height: 1.42857143;
-            color: black;
-            background-color: #fff;
-            background-image: none;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            -webkit-transition: border-color ease-in-out 0.15s,
-              -webkit-box-shadow ease-in-out 0.15s;
-            -o-transition: border-color ease-in-out 0.15s,
-              box-shadow ease-in-out 0.15s;
-            transition: border-color ease-in-out 0.15s,
-              box-shadow ease-in-out 0.15s;
           }
           .authentication-form .btn-info {
             color: #fff;
-            background-color: #ffb433;
+            background-color: #5edf2d;
             border: 0;
             margin-top: 20px;
           }
@@ -235,7 +209,7 @@ const LoginForm = () => {
           }
           .authentication-form a,
           label {
-            color: #ffffff;
+            color: #838181;
             min-height: 20px;
 
             margin-bottom: 0;
@@ -243,10 +217,17 @@ const LoginForm = () => {
             font-size: small;
             cursor: pointer;
           }
-          @media screen and (max-width: 500px) {
-            .authentication-form {
-              width: 94vw;
-            }
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #9a9a9a;
+            margin-bottom: 14px;
+          }
+
+          @media screen and (max-width: 720px) {
+           p{
+            display:none;
+           }
           }
         `}
       </style>

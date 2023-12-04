@@ -24,10 +24,11 @@ const Edit_staff = ({ show, handleClose, selectRow, allData }) => {
   };
 
   const change = async () => {
-    const id = selectRow.staffid;
-    const roleName = selectRow.role;
-    const data = await allPermissionapi(id,roleName);
-    setpermission(data);
+    const id = data.staffid;
+    const roleName = data.role;
+
+    const datas = await allPermissionapi(id, roleName);
+    setpermission(datas);
     setProfile(!profile);
   };
 

@@ -76,7 +76,7 @@ if (data.success) {
   };
 
 
-  console.log(process.env.URL);
+
 
   useEffect(() => {
   

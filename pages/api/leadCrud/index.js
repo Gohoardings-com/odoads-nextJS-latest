@@ -24,8 +24,11 @@ export default async function handler(req, res){
         const databse = req.id.code
     if(databse){
     const {value} = req.body
-    const {name,company,country,zip,city,state,address,assignfirst,status,source,email,website,phonenumber, id} = value
-        const result = await executeQuery("UPDATE tblleads SET name = '"+name+"',  company = '"+company+"', country = (SELECT Max(country_id) FROM odoads_general_tbl.tblcountries WHERE short_name = '"+country+"'), zip = "+zip+", city = (SELECT Max(id) FROM odoads_general_tbl.tblcities WHERE name = '"+city+"'), state = (SELECT Max(id) FROM odoads_general_tbl.tblstates WHERE name = '"+state+"'), address = '"+address+"', assigned = (SELECT staffid from odoads_"+databse+".tblstaff WHERE firstname = '"+assignfirst+"'), status = (SELECT Max(statusorder) FROM odoads_general_tbl.tblleadsstatus WHERE name = '"+status+"'), source = (SELECT Max(id) FROM odoads_general_tbl.tblleadssources WHERE name='"+source+"'), email = '"+email+"', website = '"+website+"', phonenumber = "+phonenumber+", is_public = 1, date_converted = CURRENT_TIMESTAMP WHERE id = "+id+" ", `odoads_${databse}` )
+    const {name,company,country,zip,city,state,address,assigned,status,source,email,website,phonenumber, id} = value
+   
+    const sql = "UPDATE tblleads SET name = '"+name+"',  company = '"+company+"', country = (SELECT Max(country_id) FROM odoads_general_tbl.tblcountries WHERE short_name = '"+country+"'), zip = "+zip+", city = (SELECT Max(id) FROM odoads_general_tbl.tblcities WHERE name = '"+city+"'), state = (SELECT Max(id) FROM odoads_general_tbl.tblstates WHERE name = '"+state+"'), address = '"+address+"', assigned = (SELECT staffid from odoads_"+databse+".tblstaff WHERE firstname = '"+assigned+"'), status = (SELECT Max(statusorder) FROM odoads_general_tbl.tblleadsstatus WHERE name = '"+status+"'), source = (SELECT Max(id) FROM odoads_general_tbl.tblleadssources WHERE name='"+source+"'), email = '"+email+"', website = '"+website+"', phonenumber = "+phonenumber+", is_public = 1, date_converted = CURRENT_TIMESTAMP WHERE id = "+id+" ";      
+  
+    const result = await executeQuery(sql, `odoads_${databse}` )
     if(result){
         return res.status(200).json({message:"Lead Update Successfully"})    
     }else{     

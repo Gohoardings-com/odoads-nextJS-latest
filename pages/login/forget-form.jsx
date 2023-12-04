@@ -55,7 +55,7 @@ const ForgetForm = () => {
     const data = await matchforgetotp(company, contactOTP);
     if (data.success == true) {
       setChangBtn(false);
-      handleForget(e)
+      handleForget(e);
     } else if (data.success == false) {
       setEror(true);
     } else if (data.message == "Otp not matched") {
@@ -66,7 +66,7 @@ const ForgetForm = () => {
   //change password api
   const handleForget = async (event) => {
     if (window !== "undefined" && window.innerWidth < 550) {
-      alert("Select dekstop view first on your browser")
+      alert("Select dekstop view first on your browser");
       return; // Exit the function without further processing
     }
     event.preventDefault();
@@ -95,8 +95,12 @@ const ForgetForm = () => {
 
   return (
     <div className="mtop40 authentication-form">
-      <h3 className="text-center">Forgot Password</h3>
-
+      <h3 className="">Forgot Password</h3>
+      <p className="">
+        Forgot your password? No worries! Enter your company name,phone no<br/> and
+        new password below, and we'll send you OTP to reset your password.
+    
+      </p>
       <div className="row">
         <form
           id="registration_form"
@@ -109,62 +113,62 @@ const ForgetForm = () => {
           >
             <div className="customtab" id="register">
               <div className="form-group my-2 mt-0">
+                <label htmlFor="company">Company Name*</label>
                 <input
                   type="text"
                   name="company"
                   id="company"
                   className="form-control input-lg c1 customvalidate"
-                  placeholder="Comapnay name*"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                 />
                 {error == true && company.length < 1 && (
                   <small className="p-0 text-danger text-small  ">
-                    Company Name Requried
+                    Company Name Required
                   </small>
                 )}
               </div>
               <div className="form-group my-2">
+                <label htmlFor="password">Password*</label>
                 <input
                   type="text"
                   name="password"
                   id="password"
                   className="form-control input-lg c1 customvalidate"
-                  placeholder="Password*"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {error == true && password.length <= 6 && (
                   <small className="p-0 text-danger text-small  ">
-                    password should be atleast 6 digit
+                    Password should be at least 6 digits
                   </small>
                 )}
               </div>
               <div className="form-group my-2">
+                <label htmlFor="confirmPassword">Confirm Password*</label>
                 <input
                   type="text"
                   name="confirmPassword"
                   id="confirmPassword"
                   className="form-control input-lg c3 customvalidate"
-                  placeholder="Confirm Password*"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 {password !== confirmPassword && (
                   <small className="p-0 text-danger text-small  ">
-                    password not matched with confirmpassword
+                    Password not matched with confirm password
                   </small>
                 )}
               </div>
               <div className="row  my-2 mb-4">
                 <div className="col-md-6">
+                  <label htmlFor="contact_phone">Phone*</label>
                   <div className="input-group">
                     <input
                       type="number"
                       name="contact_phone"
                       id="contact_phone"
                       className="form-control w-25 c4 customvalidate"
-                      placeholder="Phone*"
                       pattern="[1-9]{1}[0-9]{9}"
                       value={contactPhone}
                       onChange={(e) => setContactPhone(e.target.value)}
@@ -194,15 +198,14 @@ const ForgetForm = () => {
                     </small>
                   )}
                 </div>
-
                 <div className="col-md-6">
+                  <label htmlFor="contact_otp">OTP</label>
                   <div className="input-group d-flex my-2 my-md-0">
                     <input
                       type="number"
                       name="contact_otp"
                       id="contact_otp"
                       className="form-control w-25 customvalidate"
-                      placeholder="OTP"
                       value={contactOTP}
                       onChange={(e) => setContactOTP(e.target.value)}
                     />
@@ -216,22 +219,13 @@ const ForgetForm = () => {
                         {changeBtn ? (
                           "Confirm OTP"
                         ) : (
-                          <MdDone className="text-success" />
+                          <MdDone className="text-light" />
                         )}
                       </button>
                     </span>
                   </div>
                 </div>
               </div>
-         
-
-              {/* <button
-                className="btn btn-info w-100 my-3 mt-2"
-                onClick={handleForget}
-                disabled={changeBtn == true}
-              >
-                Change Password
-              </button> */}
             </div>
           </div>
         </form>
@@ -245,58 +239,30 @@ const ForgetForm = () => {
             border-bottom-right-radius: 4px !important;
           }
           .authentication-form {
-            background: #1a2038;
-            opacity: 0.9;
             border: none;
-            width: 700px;
+
             height: auto;
             border-radius: 2px;
           }
           .authentication-form h3 {
-            margin: 0 0 25px 0;
-            padding: 10px 0;
-            color: #ffb433;
-            border-bottom: dashed 1px rgba(255, 180, 109, 0.9);
-            text-transform: none;
-          }
-          p {
-            padding-top: 10px;
-            color: #ffb433;
+            margin: 5px 0 20px 0;
 
-            text-transform: none;
+            color: #393939;
           }
+
           p {
-            font-size: 10px;
+            font-size: 14px;
             font-weight: 400;
             color: #9a9a9a;
-            margin-bottom: 0px;
-            text-align: center;
+            margin-bottom: 14px;
           }
 
           .form-control {
-            display: block;
-            width: 100%;
-            height: 34px;
-            padding: 6px 12px;
-            font-size: 14px;
             line-height: 1.42857143;
-            color: black;
-            background-color: #fff;
-            background-image: none;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            -webkit-transition: border-color ease-in-out 0.15s,
-              -webkit-box-shadow ease-in-out 0.15s;
-            -o-transition: border-color ease-in-out 0.15s,
-              box-shadow ease-in-out 0.15s;
-            transition: border-color ease-in-out 0.15s,
-              box-shadow ease-in-out 0.15s;
           }
           .authentication-form .btn-info {
             color: #fff;
-            background-color: #ffb433;
+            background-color: #5edf2d;
             border: 0;
             margin-top: 20px;
           }
@@ -321,12 +287,21 @@ const ForgetForm = () => {
             border: 1px solid transparent;
             border-radius: 4px;
           }
-          @media screen and (max-width: 500px) {
+          label {
+            color: #838181;
+            min-height: 20px;
+
+            margin-bottom: 0;
+            font-weight: 400;
+            font-size: small;
+            cursor: pointer;
+          }
+          @media screen and (max-width: 720px) {
             .authentication-form {
               width: 94vw;
             }
             p {
-              display:none;
+              display: none;
             }
           }
         `}

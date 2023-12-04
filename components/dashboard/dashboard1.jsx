@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { allTasksApi } from "@/apis/apis";
-
+import Cookies from 'js-cookie';
 const Dashboard1 = () => {
   const [campaignData, setCampaignData] = useState({
     process: 0,
@@ -11,21 +11,26 @@ const Dashboard1 = () => {
   });
 
   //all tsak api
-  const getAllTask = async () => {
-    const data = await allTasksApi();
-    const process = data.filter(
-      (media) => media.status === "Processing"
-    ).length;
-    const New = data.filter((media) => media.status === "New").length;
-    const Hold = data.filter((media) => media.status === "Hold").length;
-    const OPEN = data.filter((media) => media.status === "OPEN").length;
+  const userIsAuthenticated =
+    typeof window !== "undefined" && Cookies.get("odoads_goh") !== undefined;
 
-    setCampaignData({
-      process,
-      New,
-      Hold,
-      OPEN,
-    });
+  const getAllTask = async () => {
+    if (userIsAuthenticated) {
+      const data = await allTasksApi();
+      const process = data.filter(
+        (media) => media.status === "Processing"
+      ).length;
+      const New = data.filter((media) => media.status === "New").length;
+      const Hold = data.filter((media) => media.status === "Hold").length;
+      const OPEN = data.filter((media) => media.status === "OPEN").length;
+
+      setCampaignData({
+        process,
+        New,
+        Hold,
+        OPEN,
+      });
+    }
   };
 
   //usr data
@@ -33,7 +38,7 @@ const Dashboard1 = () => {
 
   useEffect(() => {
     getAllTask();
-  }, []);
+  }, [userIsAuthenticated]);
   return (
     <div className="container-fluid py-2 p-4 rounded-3">
       <div className="row">

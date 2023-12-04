@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import LoginForm from "./login-form";
+import { useRouter } from "next/router";
 import RegistrationForm from "./register-form";
 
 const Login = () => {
+  const router = useRouter();
   const [isLgn, setIsLgn] = useState(false);
+  const [forget, setForgeted] = useState(false);
   const toggleForm = () => {
     setIsLgn(!isLgn);
   };
@@ -11,64 +14,83 @@ const Login = () => {
     <>
       <div className="full-container container-fluid ">
         <div className="row">
-          {!isLgn ? (
-            <>
-              <LoginForm />
-            </>
-          ) : (
-            <>
-              {" "}
-              <RegistrationForm />{" "}
-            </>
-          )}
-
-          <div className="float-right">
-            {isLgn ? (
+          <div className="col-md-6 dekstop-view p-md-5 ">
+            <img
+              className="ms-3"
+              src={
+                forget && !isLgn ? "../../imgs/l2.jpeg" : "../../imgs/l1.jpeg"
+              }
+            />
+          </div>
+          <div className="col-md-6 col-12 p-2 p-md-5">
+            <img
+              src={"../../imgs/black_logo-light.png"}
+              onClick={() => router.push("/")}
+              style={{ cursor: "pointer" }}
+            />
+            {!isLgn ? (
               <>
-                {" "}
-                <a className=" text-light" onClick={toggleForm}>
-            
-                  Already have an account?
-                </a>
+                <LoginForm setForgeted={setForgeted} />
               </>
             ) : (
               <>
                 {" "}
-                <a className="text-light" onClick={toggleForm}>
-                Don`t have an account?
-                </a>
+                <RegistrationForm />{" "}
               </>
             )}
+
+            <div className="float-right">
+              {isLgn ? (
+                <>
+                  {" "}
+                  <a className="" onClick={toggleForm}>
+                    Already have an account?
+                  </a>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <a className="" onClick={toggleForm}>
+                    Don`t have an account?
+                  </a>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
+
       <style jsx>
         {`
-           a{
-            border-bottom:1px solid transparent;
-          }
-          a:hover{
-            border-bottom:1px solid white;
-          }
           .full-container {
-            background-image: url("../../imgs/bg-billboards.jpg");
-            height: 100vh;
-            z-index: 1;
-            position: relative;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-          }  
-          .row {
-            width: min-content;
-            margin: 0px !important;
-  position: absolute;
+            position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,-50%);
+          
+            
           }
-          a{
+          .center {
+            margin: 0px !important;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          a {
+            color: #838181;
+            min-height: 20px;
+
+            margin-bottom: 0;
+
             cursor: pointer;
+          }
+          @media screen and (max-width: 720px) {
+          
+            .dekstop-view{
+              display:none;
+            }
+          }
           }
         `}
       </style>

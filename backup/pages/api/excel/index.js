@@ -51,7 +51,7 @@ export const updatePlan = catchError(async (req, res) => {
       }
 
       const sql = `UPDATE tblcompanies SET paid = 1, Plan = '${plan}' , Plan_type = '${type}' WHERE code = '${code}'`;
-      console.log(sql);
+   
       await executeQuery(sql,"odoads_tblcompanies");
       
       return res.status(206).json({ success: true, message: "success" });

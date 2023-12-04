@@ -195,7 +195,7 @@ const Index = () => {
                   },
                   {
                     title: "Assigned",
-                    field: "assignfirst",
+                    field: "assigned",
                   },
                   {
                     title: "Source",

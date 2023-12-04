@@ -86,7 +86,7 @@ export const refundPay = catchError(async (req, res, next) => {
     };
     
     axios.request(options).then(function (response) {
-      console.log(response);
+     
       // await executeQuery(`UPDATE pg_leads SET refund = 1, refund_id = '${response.id}'`,`pg_${code}`);
       // res.json({ success: true, redirectUrl: response.data.data.instrumentResponse.redirectInfo.url });
     })

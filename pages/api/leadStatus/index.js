@@ -27,18 +27,18 @@ export default async function handler(req, res) {
 export const allPermissions = catchError(async (req, res) => {
   const { id, roleName } = req.body;
   const { code } = req.id;
+
   const query =
     "SELECT permission.can_view,permission.can_view_own,permission.can_edit,permission.can_create,permissionname.name as permissionnameName, permissionname.shortname as short_name, permission.can_delete FROM tblstaffpermissions as permission INNER JOIN odoads_general_tbl.tblpermissions_bk as permissionname ON permissionname.permissionid = permission.permissionid WHERE permission.staffid = " +
     id +
     "";
   const data = await executeQuery(query, `odoads_${code}`);
   if (data.length == 0) {
-    const value = await executeQuery(
+    const sql =
       "SELECT permission.can_view,permission.can_view_own,permission.can_edit,permission.can_create,permissionname.name as permissionnameName, permissionname.shortname as short_name, permission.can_delete from tblrolepermissions as permission INNER JOIN  odoads_general_tbl.tblpermissions_bk as permissionname ON permissionname.permissionid = permission.permissionid WHERE permission.roleid =  (SELECT Max(roleid) From tblroles WHERE name LIKE '%" +
-        roleName +
-        "')",
-      `odoads_app`
-    );
+      roleName +
+      "')";
+    const value = await executeQuery(sql, `odoads_${code}`);
     if (value) {
       return res.status(200).json(value);
     }

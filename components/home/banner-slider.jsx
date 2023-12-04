@@ -75,6 +75,7 @@ const Pages = () => {
       width: index.width,
     };
   };
+  
   const tooltip = (index) => {
     return {
       left: `${index.leftT}vw`, // Use left instead of marginLeft
