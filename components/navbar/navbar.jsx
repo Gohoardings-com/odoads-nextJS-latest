@@ -50,6 +50,15 @@ const Navbar = () => {
     setPaid(userpaid);
     setLogged(userIsAuthenticated);
   }, []);
+
+  const navigate=()=>{
+    if(paid){
+      router.push("/admin")
+    }else{
+      alert("Purchase our plan or select free trial to access dashboard");
+      router.push("/pricing")
+    }
+  }
   return (
     <>
       <nav className="navbar ps-0 dekstop-nav ">
@@ -118,7 +127,7 @@ const Navbar = () => {
               <button
                 className="search-btn  btn-success me-0 lg-btn"
                 type="button"
-                onClick={() => router.push(paid ? "/admin" : "/pricing")}
+                onClick={() => navigate()}
               >
                 My Dashboard
               </button>
@@ -165,7 +174,7 @@ const Navbar = () => {
               <button
                 className="search-btn  btn-success me-0"
                 type="button"
-                onClick={() => router.push(paid ? "/admin" : "/pricing")}
+                onClick={() => navigate()}
               >
                 My Dashboard
               </button>
